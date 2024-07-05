@@ -19,10 +19,8 @@ This is a full-stack e-commerce application built using Spring Boot for the back
 ## Installation
 
 ### Prerequisites
-- Java 11+
 - Node.js
-- Npm   
-- MySQL
+- Npm
 
 ### Setup
 
