@@ -50,10 +50,10 @@ Currently, two official plugins are available:
 
 2. after installing the React + Vite app, install the dependencies by running the following commands:
 
-\```
+```bash
 cd Ecommerce-frontend
 npm install
-\```
+```
 
 ---
 
