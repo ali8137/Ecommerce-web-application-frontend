@@ -28,8 +28,8 @@ This is a full-stack e-commerce application built using Spring Boot for the back
 ## Installation
 
 ### Prerequisites
-- Node.js
-- Npm
+- Node.js v18.19.1
+- Npm 10.7.0
 
 ### Setup
 1. to install React + Vite, run the following command:
@@ -58,6 +58,15 @@ npm install
 ---
 
 ## Dependencies
+1. [material UI (MUI)](https://mui.com/material-ui/getting-started/installation/)
+[material UI icons](https://mui.com/material-ui/icons/)
+
+2. [tailwindcss](https://tailwindcss.com/docs/guides/vite)
+
+3. install hadlessui/react by running the following command: `npm install @hadlessui/react`
+install heroicons/react by running the following command: `npm install @heroicons/react`
+
+> **further information:** the above dependencies are installed to use the store-navigation offered by 'tailwindui'
 
 ---
 
