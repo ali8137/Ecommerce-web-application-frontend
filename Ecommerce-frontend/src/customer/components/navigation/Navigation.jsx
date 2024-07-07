@@ -160,6 +160,7 @@ export default function Navigation() {
 
   return (
     <div className="bg-white">
+        {/* this part is for mobile screens --------- beginning */}
       {/* Mobile menu */}
       <Dialog open={open} onClose={setOpen} className="relative z-40 lg:hidden">
         <DialogBackdrop
@@ -309,6 +310,11 @@ export default function Navigation() {
           </DialogPanel>
         </div>
       </Dialog>
+
+      {/* this part is for mobile screens --------- end */}
+
+
+      
 
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
