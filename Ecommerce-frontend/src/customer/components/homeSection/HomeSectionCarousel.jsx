@@ -50,7 +50,7 @@ const HomeSectionCarousel = (prop) => {
   // const products = men_shirts.map((product) => <HomeSectionCarouselItem image={product.imageUrl} brand={product.brand} title={product.title} key={product.id} />)
   const products = useMemo(() => dataObject.map((product) => (
     <HomeSectionProduct {...product} key={product.id} />
-  )), []);
+  )), [dataObject]);
   // used useMemo() just to improve performance and avoid redoing the same functionality during each re-render
   
   const slidePrev = () => setActiveIndex(activeIndex - 1)
