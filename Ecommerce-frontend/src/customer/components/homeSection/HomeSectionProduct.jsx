@@ -28,7 +28,7 @@ const HomeSectionProduct = (product) => {
     >
       <div className="text-center">
         {/* "flex justify-center" styles can work here also instead of "text-center" and "inline-block" */}
-        <img src={imageUrl} alt="" className="inline-block h-[12em]" />
+        <img src={imageUrl} alt="" className="inline-block h-[12em]" onDragStart={(e) => e.preventDefault()} role="presentation"/>
       </div>
       <div className="m-3">
         <p className="font-semibold mb-2 mt-2">{brand}</p>
