@@ -1,6 +1,8 @@
+
 // every component imported in this file must be used in it
 
 // the code in this file was copied from https://tailwindui.com/components/ecommerce/components/store-navigation
+
 'use client'
 
 import { Fragment, useState } from 'react'
@@ -157,6 +159,28 @@ const navigation = {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
+
+  // added the below to try changing css styles using useRef() and scrolling
+  // const navbar = useRef(null);
+  // or
+  // const [isScrolled, setIsScrolled] = useState(false);
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > window.innerHeight * 1) {
+  //       setIsScrolled(true);
+  //     }
+  //     else {
+  //       setIsScrolled(false);
+  //     } 
+  //   } ;
+
+  //   window.addEventListener('scroll', handleScroll);
+    
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return (
     <div className="bg-white">
@@ -323,7 +347,11 @@ export default function Navigation() {
 
         <nav
           aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+          className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8` 
+            // ${isScrolled ? '' : ''} 
+            // the above is just to play around with css and javascript
+          }
+          // ref={navbar}
         >
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -362,7 +390,8 @@ export default function Navigation() {
 
                       <PopoverPanel
                         transition
-                        className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+                        className="absolute z-10 h-[78vh] inset-x-0 top-full text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+                        // i have added the css style "z-10" in order to resolve the problem of the panel not appearing. and i added also the css style "h-[78vh]"
                       >
                         {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         <div

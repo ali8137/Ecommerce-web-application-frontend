@@ -25,8 +25,9 @@ import { mainCarouselData } from './mainCarouselData'
 // // for the above array, when copying it from react-alice-carousel website, we must add key={index}
 // // the reason why we must add the key prop above is because the above array is an array of jsx components. that's why there must be a key prop for each jsx component
 
-const images = mainCarouselData.map((image) => <img className='cursor-pointer w-[100vw] h-[75vh] pt-3 rounded-xl' 
+const images = mainCarouselData.map((image) => <img className='cursor-pointer w-[100vw] h-[70vh] pt-3 rounded-xl object-auto' 
   role ="presentation" src={image.imageSrc} alt={image.imageAlt} key={image.id} />
+  // role="presentation" is just part of aria to display the role of the component for someone who has a disability, I am not sure though
 )
 
 const MainCarousel = () => {
@@ -36,6 +37,7 @@ const MainCarousel = () => {
     // mouseTracking
     infinite
     autoPlay
+    // autoPlay will happen as long as the mouse is not ont the carousel component
     autoPlayInterval={1000}
     animationDuration={1000}
     // disableDotsControls
