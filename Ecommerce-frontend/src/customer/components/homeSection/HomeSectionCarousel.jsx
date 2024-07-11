@@ -60,11 +60,16 @@ const HomeSectionCarousel = (prop) => {
     // syncActiveIndex takes e as an argument, where e is the event (event object) that changed the state of the slide/carousel, like swiping, clicking, ...
     // e.type is the type of the event that changed the state of the slide/carousel, e.type is equal to "action" when the change is a user-triggered change 
     {
-      setActiveIndex(e.item)
-      // although mouseTracking prop automatically updates the activeIndex when the mouse does swiping effect against the carousel. but this automatic update is within the carousel predefined elements themselves and not for the custom buttons we added here. so, if the mouse swiped, the buttonControls and buttonDots know about this change automatically and update based on that. but when the mouse swipes, the custom buttons we added here won't know, that's why we added the method syncActiveIndex() inside the prop onSlideChanged, to keep the custom buttons updated when the mouse swipes.
-      // related to the above not: the reason why this happens is because the mouseTracking prop updates the activeIndex internally and not externally, this means within the carousel itself, that's why the buttons controls and dots controls know about that wile custom buttons i have added didn't knew about the update. in other words, the mouseTracking prop updates the state variables inside the carousel and not outside it, and hence the state active variable "activeIndex" is not updated automatically when the mouse swipes.
+      if(activeIndex !== e.item) {
+        // the above condition is to prevent the re-rendering of this component twice when we click on the next button or previous button. one re-rendering when function "slidePrev" or "slideNext" is triggered and another re-rendering when the onSlideChanged triggers the function "syncActiveIndex". but when adding the above condition, the below setter won't be triggered and hence the second re-rendering won't happen.
+        // I think the reason why the second re-render is happening is because there is duration of time between the triggering of the two setters, which mean when the interpreter is reading this file, it will pass by the first setter but it won't read the second setter because onSlideChanged is not triggered until after the change of the carousel ends and hence only the first setter will be triggered, which will re-render the component once. then after some amount of time, after the end of the change of the carousel, the second setter will be triggered and hence the second re-render will happen.
 
-      // console.log("item: ", e.item);
+        setActiveIndex(e.item)
+        // although mouseTracking prop automatically updates the activeIndex when the mouse does swiping effect against the carousel. but this automatic update is within the carousel predefined elements themselves and not for the custom buttons we added here. so, if the mouse swiped, the buttonControls and buttonDots know about this change automatically and update based on that. but when the mouse swipes, the custom buttons we added here won't know, that's why we added the method syncActiveIndex() inside the prop onSlideChanged, to keep the custom buttons updated when the mouse swipes.
+        // related to the above not: the reason why this happens is because the mouseTracking prop updates the activeIndex internally and not externally, this means within the carousel itself, that's why the buttons controls and dots controls know about that wile custom buttons i have added didn't knew about the update. in other words, the mouseTracking prop updates the state variables inside the carousel and not outside it, and hence the state active variable "activeIndex" is not updated automatically when the mouse swipes.
+  
+        // console.log("item: ", e.item);
+      }
     }
 
   return (

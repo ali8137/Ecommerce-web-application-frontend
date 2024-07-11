@@ -1,5 +1,4 @@
 import { useState } from "react"
-import HomeSectionCarousel from "./HomeSectionCarousel"
 import women_dress from "../../data/women_dress.json"
 // the name of the "variable" after import is the name of the json file we are dragging the data from. this is when we are importing json data
 import women_jeans from "../../data/women_jeans.json"
@@ -10,6 +9,7 @@ import women_gowns from "../../data/women_gowns.json"
 import women_attire from "../../data/women_attire.json"
 import men_pants from "../../data/men_pants.json"
 import men_shoes from "../../data/men_shoes.json"
+import MemorizedHomeSectionCarousel from "./MemorizedHomeSectionCarousel"
 
 
 
@@ -29,18 +29,19 @@ const HomeSection = () => {
   const [women_attire_state, ] = useState(women_attire.slice(0,10))
   const [women_jeans_state, ] = useState(women_jeans.slice(0,10))
 
+  // any change in any of the above states will cause the re-rendering of all the child components below whether this changed state was the one passed for the child component or not. to prevent that we can use wrap the definition of the below child components with React.memo(), which will do a shallow comparison for the prop. if React.memo() shallow comparison could not prevent the re-rendering for certain case like re-rendering due to re-definition of a function defined in the parent component, then in this case to prevent that in case the re-rendering is expensive, you can use useMemo() or useCallback()
 
   return (
     <section>
-      <HomeSectionCarousel dataObject={men_shirt_state}/>
-      <HomeSectionCarousel dataObject={women_dress_state}/>
-      <HomeSectionCarousel dataObject={men_jeans_state}/>
-      <HomeSectionCarousel dataObject={women_top_state}/>
-      <HomeSectionCarousel dataObject={men_shoes_state}/>
-      <HomeSectionCarousel dataObject={women_gowns_state}/>
-      <HomeSectionCarousel dataObject={men_pants_state}/>
-      <HomeSectionCarousel dataObject={women_attire_state}/>
-      <HomeSectionCarousel dataObject={women_jeans_state}/>
+      <MemorizedHomeSectionCarousel dataObject={men_shirt_state} />
+      <MemorizedHomeSectionCarousel dataObject={women_dress_state} />
+      <MemorizedHomeSectionCarousel dataObject={men_jeans_state} />
+      <MemorizedHomeSectionCarousel dataObject={women_top_state} />
+      <MemorizedHomeSectionCarousel dataObject={men_shoes_state} />
+      <MemorizedHomeSectionCarousel dataObject={women_gowns_state} />
+      <MemorizedHomeSectionCarousel dataObject={men_pants_state} />
+      <MemorizedHomeSectionCarousel dataObject={women_attire_state} />
+      <MemorizedHomeSectionCarousel dataObject={women_jeans_state} />
     </section>
   )
 }
