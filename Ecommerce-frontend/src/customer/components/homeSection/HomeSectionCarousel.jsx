@@ -48,7 +48,7 @@ const HomeSectionCarousel = (prop) => {
   // })
   
   // const products = men_shirts.map((product) => <HomeSectionCarouselItem image={product.imageUrl} brand={product.brand} title={product.title} key={product.id} />)
-  const products = useMemo(() => dataObject.map((product) => (
+  const products = useMemo(() => dataObject?.map((product) => (
     <HomeSectionProduct {...product} key={product.id} />
   )), [dataObject]);
   // used useMemo() just to improve performance and avoid redoing the same functionality during each re-render
@@ -72,8 +72,16 @@ const HomeSectionCarousel = (prop) => {
       }
     }
 
+    console.log("child component re-render")
+
   return (
-    <div className="relative px-4 lg:px-8 border-[1px] border-gray-300 rounded-sm p-8 m-8 pt-[5rem] text-purple-600">
+    <div className="relative px-4 py-8 lg:px-8 border-[1px] border-gray-300 rounded-sm m-8">
+      <h1 className="text-3xl font-bold mb-4">
+        {dataObject[0]?.topLavelCategory+
+          ' ' +
+        dataObject[0]?.thirdLavelCategory}
+      </h1>
+
       {/* check this chat with chatGPT to better understand react alice carousel "https://chatgpt.com/share/1aacf200-8765-4dba-8435-cd8d96cb41a2" */}
       <AliceCarousel
         // mouseTracking={false}
@@ -92,6 +100,8 @@ const HomeSectionCarousel = (prop) => {
         // although mouseTracking prop automatically updates the activeIndex when the mouse does swiping effect against the carousel. but this automatic update is within the carousel predefined elements themselves and not for the custom buttons we added here. so, if the mouse swiped, the buttonControls and buttonDots know about this change automatically and update based on that. but when the mouse swipes, the custom buttons we added here won't know, that's why we added the method syncActiveIndex() inside the prop onSlideChanged, to keep the custom buttons updated when the mouse swipes.
         // related to the above not: the reason why this happens is because the mouseTracking prop updates the activeIndex internally and not externally, this means within the carousel itself, that's why the buttons controls and dots controls know about that wile custom buttons i have added didn't knew about the update. in other words, the mouseTracking prop updates the state variables inside the carousel and not outside it, and hence the state active variable "activeIndex" is not updated automatically when the mouse swipes.
         // onSLideChanged is a function that is called when the slide/carousel changes, like when we slide it by touching the screen for example
+
+        // css styling can't be applied here, apply it to the parent div if you want to
       />
 
       {!isMobile && activeIndex != 0 && (
