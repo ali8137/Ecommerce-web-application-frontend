@@ -72,7 +72,7 @@ const HomeSectionCarousel = (prop) => {
       }
     }
 
-    console.log("child component re-render")
+    // console.log("child component re-render")
 
   return (
     <div className="relative px-4 py-8 lg:px-8 border-[1px] border-gray-300 rounded-sm m-8">
