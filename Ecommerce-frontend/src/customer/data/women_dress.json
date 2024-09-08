@@ -11,7 +11,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -40,7 +40,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -48,7 +48,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -69,7 +69,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -77,7 +77,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -106,7 +106,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -131,7 +131,7 @@
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -160,7 +160,7 @@
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -185,11 +185,11 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -222,7 +222,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -276,7 +276,7 @@
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -301,7 +301,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -330,15 +330,15 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -363,7 +363,7 @@
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -388,7 +388,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -417,11 +417,11 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
-              "quantity": 30
+              "quantity": 0
             },
             {
               "name": "L",
@@ -475,7 +475,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -504,7 +504,7 @@
         "size": [
             {
               "name": "S",
-              "quantity": 20
+              "quantity": 0
             },
             {
               "name": "M",
@@ -541,7 +541,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -570,7 +570,7 @@
             },
             {
               "name": "L",
-              "quantity": 50
+              "quantity": 0
             }
           ],
           "quantity": 100,
@@ -904,8 +904,8 @@
         "brand": "Tokyo Talkies",
         "title": "Women Skater Yellow Dress",
         "color": "orange",
-        "discountedPrice": 131,
-        "price": 262,
+        "discountedPrice": 1700,
+        "price": 3400,
         "discountPercent": 50,
         "size": [
             {
@@ -1136,8 +1136,8 @@
         "brand": "AAYU",
         "title": "Women Fit and Flare Yellow, White, Black Dress",
         "color": "yellow",
-        "discountedPrice": 164,
-        "price": 328,
+        "discountedPrice": 40,
+        "price": 80,
         "discountPercent": 50,
         "size": [
             {

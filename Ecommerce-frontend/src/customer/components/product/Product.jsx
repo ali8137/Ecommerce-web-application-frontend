@@ -16,7 +16,9 @@
 */
 'use client'
 
-import { useState } from 'react'
+import { 
+    // useRef, 
+    useState } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -40,6 +42,22 @@ import {
 import ProductCard from './ProductCard'
 import women_dress from '../../data/women_dress.json'
 
+
+import { 
+    // BrowserRouter, 
+    // Routes, 
+    // Route, 
+    // Link, 
+    useSearchParams } from "react-router-dom";
+
+
+
+
+
+
+
+
+
 // below are sort options that we can apply on the products
 const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
@@ -52,12 +70,13 @@ const filters = [
     id: 'color',
     name: 'Color',
     options: [
-      { value: 'white', label: 'White', checked: false },
+      { value: 'yellow', label: 'yellow', checked: false },
       { value: 'beige', label: 'Beige', checked: false },
       { value: 'blue', label: 'Blue', checked: false },
       { value: 'brown', label: 'Brown', checked: false },
       { value: 'green', label: 'Green', checked: false },
       { value: 'purple', label: 'Purple', checked: false },
+      { value: 'white', label: 'white', checked: false },
     ],
   },
   {
@@ -73,16 +92,17 @@ const filters = [
     id: 'price',
     name: 'Price',
     options: [
-      { value: '0-100', label: '0$ to 100$', checked: false },
-      { value: '100-200', label: '100$ to 200$', checked: false },
-      { value: '200-300', label: '200$ to 300$', checked: false },
-      { value: '300-400', label: '300$ to 400$', checked: false },
-      { value: '400-500', label: '400$ to 500$', checked: false },
-      { value: '500-1000', label: '500$ to 1000$', checked: false },
-      { value: '1000-1500', label: '1000$ to 1500$', checked: false },
+      { value: 0, label: 'below 100$', checked: false },
+      { value: 100, label: '100$ to 200$', checked: false },
+      { value: 200, label: '200$ to 300$', checked: false },
+      { value: 300, label: '300$ to 400$', checked: false },
+      { value: 400, label: '400$ to 500$', checked: false },
+      { value: 500, label: '500$ to 1000$', checked: false },
+      { value: 1000, label: 'above 1500$', checked: false },
     ],
   },
 ]
+// you can delete the "checked" property from the options of the above filters because i set the checkbox state of the input element using the url query/search params. see the function "getCheckBoxStateFromUrl"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -95,7 +115,223 @@ export default function Product() {
 
 
 
+    // const refElement = useRef(null)
+    // this was added to refer to the component "Link" in the filters section below
+
+
+
     
+
+    // associating the filter options with the searchParams to enable filtering logic ----------- beginning
+    const [searchParams, setSearchParams] = useSearchParams()
+    
+
+    // the below function is to update the url search params based on the checkbox state of the checkbox input elements
+    const handleCheckboxChange = (paramKey, paramValue, event) => {
+
+        if (event.target.checked) {
+          handleCheckedChange(paramKey, paramValue)
+        } else {
+            handleUncheckedChange(paramKey, paramValue)
+        }
+    }
+
+    const handleCheckedChange = (paramKey, paramValue) => {
+      setSearchParams((prevParams) => {
+        // the type of prevParams is a "URLSearchParams" object. this is part of web api. this type acts similar to a map but used specifically for url query params
+        
+        // if (paramKey === 'Color' && prevParams.has(paramKey)) {
+        //     prevParams.append(paramKey, paramValue)
+
+        //     // console.log(paramKey, paramValue)
+        // }
+        // else{
+        //     prevParams.set(paramKey, paramValue)
+        // }
+
+
+        if (prevParams.has(paramKey)) {
+            prevParams.append(paramKey, paramValue.toString())
+
+            // console.log(paramKey, paramValue)
+        }
+        else{
+            prevParams.set(paramKey, paramValue.toString())
+        }
+
+        return prevParams
+        // the returned value is the new value of "searchParams" that the function "setSearchParams()" will set
+      })
+    }
+
+    const handleUncheckedChange = (paramKey, paramValue) => {
+        setSearchParams((prevParams) => {
+          // if (
+          //   paramKey === 'Color' &&
+          //   prevParams.getAll(paramKey).length > 1
+          // ) {
+
+          //     // console.log(prevParams.getAll(paramKey))
+
+          //     const allColors = prevParams.getAll(paramKey)
+
+          //     const remainingColors = allColors.filter(
+          //         (color) => color !== paramValue
+          //     )
+
+          //     prevParams.delete(paramKey)
+
+          //     remainingColors.forEach((color) => prevParams.append(paramKey, color))
+
+          //     // remainingColors.forEach((color) => console.log(color))
+          //     // console.log(prevParams.getAll(paramKey))
+
+          //     return prevParams
+          // }
+          // else {
+          //     prevParams.delete(paramKey)
+          //     // return prevParams
+//         //   with "delete()" method of the "URLSearchParams" object, we don't need to return the new value of "searchParams"\
+//         //   the above statement is completely wrong
+          // }
+
+          if (
+            //   paramKey === 'Color' &&
+            prevParams.getAll(paramKey).length > 1
+            //   no need to add "?" here or to handle some edge cases because these edge cases won't happen because we have checking then un-checking
+          ) {
+            // console.log(prevParams.getAll(paramKey))
+
+            const allValues = prevParams.getAll(paramKey)
+
+            const remainingValues = allValues.filter(
+              (value) => value !== paramValue.toString()
+            )
+
+            prevParams.delete(paramKey)
+
+            remainingValues.forEach((value) =>
+              prevParams.append(paramKey, value)
+            )
+
+            // remainingValue.forEach((value) => console.log(value))
+            // console.log(prevParams.getAll(paramKey))
+
+            return prevParams
+          } else {
+            prevParams.delete(paramKey)
+            return prevParams
+            // with "delete()" method of the "URLSearchParams" object, we don't need to return the new value of "searchParams"
+            // the above statement is completely wrong
+          }
+        })
+    }
+
+
+    // the below method is to update the checkbox state of the checkbox input elements -in the filters down below- based on the value of the url query/search params
+    const getCheckBoxStateFromUrl = (paramKey, paramValue) => {
+        return searchParams.getAll(paramKey).includes(paramValue) === true
+        // includes() method is a method of the "Array" object, and the getAll() method returns an array object indeed
+    }
+
+    // associating the filter options with the searchParams to enable filtering logic ----------- end
+
+
+    // console.log('rendering')
+
+
+
+
+
+
+
+
+    // enabling filter logic ----------- beginning
+    const colorFilter = searchParams.getAll('Color')
+    const sizeFilter = searchParams.getAll('Size')
+    const priceFilter = searchParams.getAll('Price')
+
+    const colorFilteredProducts =
+      colorFilter.length > 0
+        ? women_dress.filter(
+            (product) =>
+              colorFilter.includes(product.color.toLowerCase())
+          )
+        : women_dress
+        
+    const colorAndSizeFilteredProducts = 
+         sizeFilter.length > 0
+        ? colorFilteredProducts.filter(
+            (product
+                // , index
+            ) => {
+
+            
+            const array = sizeFilter.map((sizeParamValue) =>
+                product.size.some((size) => (size.name === sizeParamValue) && (size.quantity > 0))
+            )
+
+            // console.log("array" + index, array)
+
+            return !array.includes(false)
+
+            // && priceFilter.includes(product.price)
+        })
+        : colorFilteredProducts
+
+
+    const filteredProducts =
+     priceFilter.length > 0
+        ? colorAndSizeFilteredProducts.filter(
+            (product) => {
+                
+                const booleanArray = priceFilter.map((price) => {
+
+
+                    
+                    const priceFilterOptions = filters.at(2).options
+
+                    const optionWithPriceAsValue = priceFilterOptions.find((priceOption) => 
+                        priceOption.value >= price
+                    // no need for more conditions because the price options array is sorted in increasing order
+                    )
+
+                    
+                    const IndexAtPriceFilterArray = priceFilterOptions.indexOf(optionWithPriceAsValue);
+                    
+                    // console.log("price", price)
+                    // console.log("product discounted price", product.discountedPrice)
+                    // console.log('optionWithPriceAsValue', optionWithPriceAsValue)
+                    // console.log(
+                    //   'filters',
+                    //   priceFilterOptions.at(IndexAtPriceFilterArray + 1).value
+                    // )
+                    // console.log('index', IndexAtPriceFilterArray)
+                    return (product.discountedPrice > price) && ((IndexAtPriceFilterArray === (priceFilterOptions.length - 1)) || product.discountedPrice <= priceFilterOptions.at(IndexAtPriceFilterArray + 1).value)
+                })
+
+
+                console.log('booleanArray', booleanArray)
+
+                return booleanArray.includes(true)
+
+        })
+        : colorAndSizeFilteredProducts
+    
+
+    // console.log(filteredProducts)
+    
+
+    // enabling filter logic ----------- end
+
+
+
+
+
+
+    // TODO: add a filter icon on the top left side of the filters section of this component
+
+
 
 
 
@@ -317,14 +553,34 @@ export default function Product() {
                       <div className="space-y-4">
                         {section.options.map((option, optionIdx) => (
                           <div key={option.value} className="flex items-center">
+                            
+                            
+                            {/* <Link 
+                                to="products?type=jedi" 
+                                ref={refElement}
+                            /> */}
+
+
+                            {/* {setIsChecked((prevItems) => 
+                                [...prevItems, option.checked]
+                            )} */}
+                            
                             <input
-                              defaultValue={option.value}
-                              defaultChecked={option.checked}
-                              id={`filter-${section.id}-${optionIdx}`}
-                              name={`${section.id}[]`}
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                              onClick={() => {}}
+                            defaultValue={option.value}
+                            // defaultChecked={option.checked}
+                            id={`filter-${section.id}-${optionIdx}`}
+                            name={`${section.id}[]`}
+                            type="checkbox"
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            // onClick={() => {refElement.current.click()}}
+
+
+                            checked={getCheckBoxStateFromUrl(section.name, option.value.toString())}
+                            
+                            onChange={(event) => handleCheckboxChange(section.name, option.value, event)}
+                            // we can pass event to an event listener callback function. inside the definition of this callback function we can pass and access variables from outside the definition of this function like for example "section.name" in the above line
+
+
                             />
                             <label
                               htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -345,7 +601,7 @@ export default function Product() {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 <div className="flex flex-wrap justify-center bg-white py-5">
-                  {women_dress.map(
+                  {filteredProducts.map(
                     (product) => (
                       <ProductCard {...product} key={product.id} />
                     )
@@ -354,8 +610,6 @@ export default function Product() {
                 </div>
               </div>
               {/* here is where we have to add the custom data of ours ----- end */}
-
-
             </div>
           </section>
           {/* for laptop screen ------ end*/}

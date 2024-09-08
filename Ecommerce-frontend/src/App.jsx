@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Navigation from './customer/components/navigation/Navigation.jsx'
 // import HomePage from './pages/HomePage.jsx'
@@ -7,9 +8,11 @@ function App() {
 
   return (
     <>
-    <Navigation/>
-    {/* <HomePage /> */}
-    <Product />
+    <BrowserRouter>
+        <Navigation/>
+        {/* <HomePage /> */}
+        <Product />
+    </BrowserRouter>
     </>
   )
 }
