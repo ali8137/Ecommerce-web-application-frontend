@@ -1,0 +1,14 @@
+# Node.js
+Ecommerce-frontend/node_modules/
+
+
+# React
+Ecommerce-frontend/build/
+Ecommerce-frontend/.env
+
+
+# log files
+Ecommerce-frontend/*.log
+
+# VS Code
+.vscode/
