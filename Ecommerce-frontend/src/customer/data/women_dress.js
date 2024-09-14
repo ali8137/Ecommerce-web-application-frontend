@@ -1,4 +1,4 @@
-[
+export const women_dress = [
     {
         "id": 1,
         "imageUrl": "https://rukminim1.flixcart.com/image/612/612/xif0q/dress/a/x/z/l-na-awd-19-yellow-aarvia-original-imagzffm3bkyzup2.jpeg?q=70",
@@ -23,6 +23,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -52,6 +54,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -81,6 +85,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -110,6 +116,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -139,6 +147,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -168,6 +178,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -197,6 +209,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -226,6 +240,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -255,6 +271,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -284,6 +302,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -313,6 +333,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -342,6 +364,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -371,6 +395,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -400,6 +426,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -429,6 +457,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -458,6 +488,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -487,6 +519,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -516,6 +550,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -545,6 +581,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -574,6 +612,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -603,6 +643,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -632,6 +674,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -661,6 +705,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -690,6 +736,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -719,6 +767,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -748,6 +798,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -777,6 +829,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -806,6 +860,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -835,6 +891,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -864,6 +922,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -893,6 +953,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -922,6 +984,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -951,6 +1015,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -980,6 +1046,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1009,6 +1077,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1038,6 +1108,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1067,6 +1139,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1096,6 +1170,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1125,6 +1201,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",
@@ -1154,6 +1232,8 @@
             }
           ],
           "quantity": 100,
+          "amount": 1,
+          // added the above property to "test" the functionality of the components in the directory "./customer/components/cart" 
           "topLavelCategory": "Women",
           "secondLavelCategory": "Clothing",
           "thirdLavelCategory": "dress",

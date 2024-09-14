@@ -4,9 +4,13 @@ import aspectRatio from '@tailwindcss/aspect-ratio';
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {},
-  },
+    theme: {
+      extend: {
+        gridTemplateRows: {
+          '[auto,auto,1fr]': 'auto auto 1fr',
+        },
+      },
+    },
   plugins: [
     aspectRatio
     // the above was added when using the store navigation provided by tailwindui
