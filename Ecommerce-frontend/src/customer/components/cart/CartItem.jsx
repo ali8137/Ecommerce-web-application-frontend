@@ -23,6 +23,7 @@ const CartItem = (prop) => {
     color,
     discountPercent,
     amount,
+    hasButtons,
   } = prop
 
   // const { cartItems } = useSelector((store) => store.cart)
@@ -48,30 +49,42 @@ const CartItem = (prop) => {
             {discountPercent}% off
           </span>
         </div>
-        <div className="lg:absolute lg:bottom-5 lg:left-5 text-sm">
-          <Button color="secondary" size="small">
-            remove
-          </Button>
-        </div>
+        {hasButtons && (
+          <div className="lg:absolute lg:bottom-5 lg:left-5 text-sm">
+            <Button color="secondary" size="small">
+              remove
+            </Button>
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-2 justify-center items-center">
-        <Button onClick={() => dispatch(increaseItem(id))}>
-          <KeyboardArrowUpIcon />
-        </Button>
-        <div className="">{amount}</div>
+        {hasButtons && (
+          <Button onClick={() => dispatch(increaseItem(id))}>
+            <KeyboardArrowUpIcon />
+          </Button>
+        )}
+        <div
+          className={
+            !hasButtons && 'font-bold py-4 px-10 bg-gray-200 rounded-2xl'
+          }
+        >
+          {amount}
+        </div>
         {/* note that "id" property in the array "women_dress" has values as "1","2","3", ... and not as "0","1","2", ... and hence when dealing with "women_dress" as array be careful of that "id" of each element of the array is different from "index" of each element in this case. and i am too lazy to change "id" values manually */}
         {/* {console.log("id", id)} */}
-        <Button
-          onClick={() => {
-            if (amount === 1) {
-              dispatch(removeItem(id))
-              return
-            }
-            dispatch(decreaseItem(id))
-          }}
-        >
-          <KeyboardArrowDownIcon />
-        </Button>
+        {hasButtons && (
+          <Button
+            onClick={() => {
+              if (amount === 1) {
+                dispatch(removeItem(id))
+                return
+              }
+              dispatch(decreaseItem(id))
+            }}
+          >
+            <KeyboardArrowDownIcon />
+          </Button>
+        )}
       </div>
     </div>
   )
