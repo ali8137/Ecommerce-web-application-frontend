@@ -1,7 +1,7 @@
 // import React from 'react'
 
 import { useEffect } from 'react'
-import CartItem from '../cart/CartItem'
+import CartProduct from '../cart/CartProduct'
 import CartOrderSummary from '../cart/CartOrderSummary'
 import { useDispatch, useSelector } from 'react-redux'
 import { calculateTotals } from '../cart/redux/features/cartSlice/cartSlice'
@@ -19,7 +19,7 @@ const OrderSummary = () => {
     dispatch(calculateTotals())
   }, [cartItems, dispatch])
   return (
-    <div className='m-5'>
+    <div className="m-5">
       <div className="lg:mx-20 flex flex-col-reverse lg:flex-row l lg:justify-between pt-10">
         {/* cart items */}
         <div className="lg:w-3/5 flex flex-col pt-2 mt-24 lg:mt-0 border-t-2">
@@ -30,7 +30,7 @@ const OrderSummary = () => {
           ) : (
             <div className="">
               {cartItems.slice(0, 3).map((product) => (
-                <CartItem key={product.id} {...product} hasButtons={false} />
+                <CartProduct key={product.id} {...product} hasButtons={false} />
               ))}
             </div>
           )}

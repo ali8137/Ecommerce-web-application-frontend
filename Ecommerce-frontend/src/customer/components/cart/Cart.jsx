@@ -1,6 +1,6 @@
 // import React from 'react'
 import { Button } from '@mui/material'
-import CartItem from './CartItem'
+import CartProduct from './CartProduct'
 import { openModal } from './redux/features/modal/modalSlice'
 import {
   useEffect,
@@ -58,9 +58,9 @@ const Cart = () => {
               your Cart is Empty
             </h1>
           ) : (
-            <div className="">
+            <div>
               {cartItems.slice(0, 3).map((product) => (
-                <CartItem key={product.id} {...product} hasButtons={true} />
+                <CartProduct key={product.id} {...product} hasButtons={true} />
               ))}
             </div>
           )}

@@ -9,6 +9,7 @@ const CartOrderSummary = () => {
   return (
     <>
       <h3 className="text-xl font-semibold mt-6 pb-3">Order Summary</h3>
+      {/* TODO: might choose to add an bag or cart icon here later  */}
       <hr />
       <div className="space-y-2">
         <div className="flex justify-between font-semibold">
