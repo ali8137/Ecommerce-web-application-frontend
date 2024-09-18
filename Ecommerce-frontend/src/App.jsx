@@ -59,8 +59,10 @@ export default App
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
 //     <>
-//       <Route path="/" element={<HorizontalLinearStepper />} />
-//       <Route path="/submit" action={action} element={<HomePage />} />
+//       <Route action={action} path="/" element={<HorizontalLinearStepper />} />
+//       <Route path="/submit" element={<HomePage />} />
+//       {/* <Route path="/submit" action={action} element={<HomePage />} /> */}
+//       {/* if we used the action prop inside a route other than the route of the react component that contains the <Form> component which this above action prop is attached/associated/relative to, then in this case the action function inside this react component will mount/rerender the react component of the above route where action prop was added  */}
 //     </>
 //   )
 // )

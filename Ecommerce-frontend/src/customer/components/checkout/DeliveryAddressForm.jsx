@@ -318,9 +318,10 @@ export default DeliveryAddressForm
 
 //   return (
 //     <div>
+//       {/* react-router <Form> won't work with <BrowserRouter>, it works only with createBrowserRouter() way, that is with data layer API (loader functions) */}
 //       <Form
 //         method="post"
-//         action="/submit"
+//         // action="/submit"
 //         replace
 //       >
 //         <Box sx={{ border: `1px solid ${grey[400]}`, borderRadius: 2, p: 4 }}>
@@ -539,6 +540,7 @@ export default DeliveryAddressForm
 //             color="secondary"
 //             size="large"
 //             sx={{ width: '30%', marginLeft: '10%', mt: '3rem' }}
+      
 //             disabled={navigation.state === 'submitting'}
 //           >
 //             {navigation.state === 'submitting' ? 'Delivering...' : 'Deliver'}

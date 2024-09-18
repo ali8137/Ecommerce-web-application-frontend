@@ -38,7 +38,7 @@ const CartProduct = (prop) => {
       <div className="lg:relative w-3/5 mt-5">
         <h3 className="font-semibold">{title}</h3>
         <div className="space-x-6">
-          <span className="text-gray-500">{color}</span>
+          <span className="text-gray-500 border-r-2 pr-5">{color}</span>
           <span className="text-gray-500">large</span>
         </div>
         <div className="mt-5 space-x-2">
@@ -51,7 +51,7 @@ const CartProduct = (prop) => {
         </div>
         {hasButtons && (
           <div className="lg:absolute lg:bottom-5 lg:left-5 text-sm">
-            <Button color="secondary" size="small">
+            <Button color="secondary" size="small" onClick={() => dispatch(removeItem(id))}>
               remove
             </Button>
           </div>

@@ -1,4 +1,3 @@
-
 // every component imported in this file must be used in it
 
 // the code in this file was copied from https://tailwindui.com/components/ecommerce/components/store-navigation
@@ -27,8 +26,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { navigation } from './navigationData'
-
-
+import { useSelector } from 'react-redux'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -45,19 +43,21 @@ export default function Navigation() {
   //     }
   //     else {
   //       setIsScrolled(false);
-  //     } 
+  //     }
   //   } ;
 
   //   window.addEventListener('scroll', handleScroll);
-    
+
   //   return () => {
   //     window.removeEventListener('scroll', handleScroll);
   //   };
   // }, []);
 
+  const { totalAmount } = useSelector((store) => store.cart)
+
   return (
     <div className="bg-white">
-        {/* this part is for mobile screens --------- beginning */}
+      {/* this part is for mobile screens --------- beginning */}
       {/* Mobile menu */}
       <Dialog open={open} onClose={setOpen} className="relative z-40 lg:hidden">
         <DialogBackdrop
@@ -210,9 +210,6 @@ export default function Navigation() {
 
       {/* this part is for mobile screens --------- end */}
 
-
-      
-
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
@@ -220,8 +217,9 @@ export default function Navigation() {
 
         <nav
           aria-label="Top"
-          className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8` 
-            // ${isScrolled ? '' : ''} 
+          className={
+            `mx-auto max-w-7xl px-4 sm:px-6 lg:px-8`
+            // ${isScrolled ? '' : ''}
             // the above is just to play around with css and javascript
           }
           // ref={navbar}
@@ -396,13 +394,13 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <a href="#" className="group relative -m-2 flex items-center p-2">
                     <ShoppingBagIcon
                       aria-hidden="true"
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                    <span className="absolute z-10 top-[-2px] right-[-10px] ml-2 px-2 bg-gray-300 shadow-sm border rounded-full text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                      {totalAmount}
                     </span>
                     <span className="sr-only">items in cart, view bag</span>
                   </a>
