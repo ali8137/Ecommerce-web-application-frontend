@@ -153,7 +153,7 @@ export default function HorizontalLinearStepper() {
           ) : activeStep === 1 ? (
             <div className="lg:flex lg:justify-around mb-16 mt-8">
               <div className="lg:w-2/5 border-2 p-8">
-                <AddressCard />
+                <AddressCard hasButtons={true}/>
               </div>
               <div className="lg:w-2/4">
                 <DeliveryAddressForm />

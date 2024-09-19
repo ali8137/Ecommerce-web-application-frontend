@@ -1,7 +1,9 @@
 import { BrowserRouter } from 'react-router-dom'
 import './App.css'
 import Navigation from './customer/components/navigation/Navigation.jsx'
-import HorizontalLinearStepper from './customer/components/checkout/HorizontalLinearStepper'
+// import Order from './customer/components/order/Order.jsx'
+import OrderDetails from './customer/components/order/OrderDetails.jsx'
+// import HorizontalLinearStepper from './customer/components/checkout/HorizontalLinearStepper'
 // import HomePage from './pages/HomePage.jsx'
 // import Product from './customer/components/product/Product.jsx'
 // import ProductDetails from './customer/components/productDetails/ProductDetails.jsx'
@@ -17,7 +19,9 @@ function App() {
         {/* <Product /> */}
         {/* <ProductDetails /> */}
         {/* <CartContainer/> */}
-        <HorizontalLinearStepper />
+        {/* <HorizontalLinearStepper /> */}
+        {/* <Order /> */}
+        <OrderDetails />
     </BrowserRouter>
     </>
   )
