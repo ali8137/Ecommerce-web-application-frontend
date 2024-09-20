@@ -74,8 +74,17 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0)
   }
 
+
+
+
+  // TODO: implement back-to-shopping-cart-route button 
+
+
+
+
+
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', padding: '50px' }}>
       <Stepper activeStep={activeStep}>
         {/* activeStep prop is the index of the active step, the value of the variable "activeStep" passed as a value of this prop determines which step in te stepper is the active one(the one which UI is displayed. if the activeStep variable is set to 0, the first step in the stepper will be displayed. also, if the activeStep variable is set to 1, the first step in the stepper will be ticked (and the second step in the stepper will be displayed).   */}
         {/* whenever the value of the variable "activeStep" changes, the <Stepper> component will rerender itself and hence re-executes the code below */}

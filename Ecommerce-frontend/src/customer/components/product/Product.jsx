@@ -45,6 +45,7 @@ import { filters } from './filterData'
 
 
 import { 
+  // useParams,
     // BrowserRouter, 
     // Routes, 
     // Route, 
@@ -312,6 +313,16 @@ export default function Product() {
     // TODO: implementing the paging logic ----------- beginning
     
     // implementing the paging logic ----------- end
+
+
+
+
+
+    // was trying to access the dynamic URL params of the route of this react component "Product"
+    // const {categoryName, productsectionName, productItemName} = useParams()
+
+    // console.log('category', categoryName, 'section', productsectionName, 'item', productItemName)
+
 
 
 

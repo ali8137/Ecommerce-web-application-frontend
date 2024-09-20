@@ -2,9 +2,14 @@
 
 import { Button } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { 
+  // NavLink, 
+  useNavigate } from 'react-router-dom'
 
 const CartOrderSummary = () => {
   const { subTotalPrice } = useSelector((store) => store.cart)
+
+  const navigate = useNavigate()
 
   return (
     <>
@@ -30,14 +35,19 @@ const CartOrderSummary = () => {
           <div>${subTotalPrice}</div>
         </div>
         <div className="pt-4">
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{ width: '100%' }}
-          >
-            Checkout
-          </Button>
+          {/* <NavLink to="checkoutProcess"> */}
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{ width: '100%' }}
+
+              onClick={() => navigate('/checkoutProcess')}
+              // the path in the above
+            >
+              Checkout
+            </Button>
+          {/* </NavLink> */}
         </div>
       </div>
     </>

@@ -27,6 +27,7 @@ import { Radio, RadioGroup } from '@headlessui/react'
 import { Box, Rating } from '@mui/material'
 import LinearProgressWithLabel from './LinearProgressWithLabel'
 import ProductReviewCard from './ProductReviewCard'
+// import { useNavigate } from 'react-router-dom'
 
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -96,6 +97,22 @@ export default function ProductDetails() {
     progress,
     // , setProgress
   ] = useState(60)
+
+
+
+  // const navigate = useNavigate()
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault()
+
+  //   navigate('')
+  // }
+
+
+
+
+  // TODO: implement back-to-productListings-route button
+
 
   return (
     <div className="bg-white">
@@ -339,6 +356,8 @@ export default function ProductDetails() {
                 <button
                   type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+
+                  // onSubmit={handleSubmit}
                 >
                   Add to cart
                 </button>
