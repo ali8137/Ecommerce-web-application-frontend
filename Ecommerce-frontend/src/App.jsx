@@ -38,10 +38,10 @@ const router = createBrowserRouter(
           <Route index element={<Productslisting />} />
           <Route path=":productId" element={<ProductOverview />} />
         </Route>
-        <Route path="shoppingCart" element={<CartContainer />} />
-        <Route path="checkoutProcess" element={<HorizontalLinearStepper />} />
+        <Route path="shopping-cart" element={<CartContainer />} />
+        <Route path="checkout-process" element={<HorizontalLinearStepper />} />
         <Route path="order" element={<Order />} />
-        <Route path="orderDetails" element={<OrderDetails />} />
+        <Route path="order-details" element={<OrderDetails />} />
       </Route>
 
       {/* the below addition is when i wanted to test the react-router <Form /> */}
