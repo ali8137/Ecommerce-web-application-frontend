@@ -9,6 +9,10 @@ import DeliveryAddressForm from './DeliveryAddressForm'
 import AddressCard from './AddressCard'
 import OrderSummary from './OrderSummary'
 
+
+// TODO: add the loader function. this loader function will fetch the order items, and will call the util function requireAuth() function to check if the user is logged in or not
+
+
 const steps = ['Login', 'Delivery address', 'Order summary', 'Payment']
 
 export default function HorizontalLinearStepper() {
@@ -80,6 +84,7 @@ export default function HorizontalLinearStepper() {
   // TODO: implement back-to-shopping-cart-route button 
 
 
+  // TODO: access the data fetched by the loader function present in this react component
 
 
 

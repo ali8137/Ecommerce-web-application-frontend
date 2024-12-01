@@ -14,6 +14,8 @@ import MemorizedHomeSectionCarousel from './MemorizedHomeSectionCarousel'
 const HomeSection = () => {
   // TODO: I beleive there must be changes to be doen here when it comes to whether the below variables/data must be states or not
 
+  // TODO: access the data fetched by the loader function present in the component <HomePage>. and pass this data as props to the below children components
+
   // before dynamically fetching data from the backend using API:
   const [men_shirt_state] = useState(men_shirt.slice(0, 10))
   // slice() method to create a new array with the first 10 elements of the original array

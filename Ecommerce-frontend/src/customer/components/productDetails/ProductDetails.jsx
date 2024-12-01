@@ -113,6 +113,8 @@ export default function ProductDetails() {
 
   // TODO: implement back-to-productListings-route button
 
+  // TODO: access the data fetched by the loader function present in the react component <ProductOverview>
+
 
   return (
     <div className="bg-white">

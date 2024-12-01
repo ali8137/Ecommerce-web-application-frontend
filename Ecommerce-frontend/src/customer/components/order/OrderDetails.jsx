@@ -5,7 +5,13 @@ import AddressCard from '../checkout/AddressCard'
 import OrderItem from './OrderItem'
 import OrderTracker from './OrderTracker'
 
+// TODO: add the loader function. this loader function will fetch the order items, and will call the util function requireAuth() function to check if the user is logged in or not
+
 const OrderDetails = () => {
+
+
+  // TODO: access the data fetched by the loader function present in this react component
+
   return (
     <div className="m-16 space-y-16">
       <div>

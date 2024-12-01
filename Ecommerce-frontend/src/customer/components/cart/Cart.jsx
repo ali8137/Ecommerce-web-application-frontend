@@ -47,6 +47,8 @@ const Cart = () => {
   //   }, [])
   // the value of useRef() variable "scrollPosition" won't be stored across re-mounts, it will reset to its original value when the component is unmounted and then mounted. so, the above code is useless
 
+  // TODO: access the data fetched by the loader function present in this react component
+
   return (
     <div className="m-10">
       <h1 className="text-3xl font-bold">shopping Cart</h1>

@@ -2,6 +2,8 @@
 
 import ProductDetails from '../customer/components/productDetails/ProductDetails'
 
+// TODO: add the loader function. this loader function will fetch the product details, and will call the util function requireAuth() function to check if the user is logged in or not
+
 const ProductOverview = () => {
   return (
     <div>

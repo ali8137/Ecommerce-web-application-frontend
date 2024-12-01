@@ -520,7 +520,7 @@ export default function Navigation() {
                     <span className="sr-only">items in cart, view bag</span>
                   </a> */}
                   <NavLink
-                    to='shoppingCart'
+                    to='shopping-cart'
                     className="group relative -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon

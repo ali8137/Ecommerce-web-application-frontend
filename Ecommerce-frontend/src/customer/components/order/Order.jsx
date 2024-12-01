@@ -3,6 +3,12 @@
 import OrderCard from './OrderCard'
 import { women_dress } from '../../data/women_dress'
 
+
+
+// TODO: add the loader function. this loader function will fetch the orders, and will call the util function requireAuth() function to check if the user is logged in or not
+
+
+
 const orderStatus = [
   { label: 'on the way', value: 'on the way' },
   { label: 'delivered', value: 'delivered' },
@@ -15,6 +21,8 @@ const Order = () => {
 
   // TODO: implement filter feature
 
+
+  // TODO: access the data fetched by the loader function present in this react component 
 
   return (
     <div className="lg:flex lg:gap-10 m-20">
