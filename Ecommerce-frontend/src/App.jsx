@@ -46,6 +46,8 @@ const router = createBrowserRouter(
         <Route path="checkout-process" element={<HorizontalLinearStepper />} />
         <Route path="order" element={<Order />} />
         <Route path="order-details" element={<OrderDetails />} />
+        {/* TODO: add a route for the profile of the user. and add the definition of its react components (a react component mainly <UserProfile>). and access the user info from the backend through the "authentication" redux reducer (done in react component <Navigation>) */}
+        {/* TODO: add a route for the admin dashboard. and add the definition of its react components and its reducx toolkits */}
       </Route>
 
       {/* the below addition is when i wanted to test the react-router <Form /> */}

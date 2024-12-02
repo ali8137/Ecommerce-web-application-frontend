@@ -118,6 +118,9 @@ export default function Navigation() {
   // was trying to use the below to programmatically close the <PopoverPanel> down below
   // const close = useClose()
 
+
+  // TODO: access the "authentication" (register, login, logout and user profile ) redux reducer to send requests to the backend to register, login, logout and get the user profile
+  
   return (
     <div className="bg-white">
       {/* this part is for mobile screens --------- beginning */}

@@ -325,6 +325,10 @@ export default function Product() {
 
 
 
+    // TODO: remove the filtering,sorting and paging logic from being executed in the frontend and do that in the backend
+    
+    // TODO: access the products (to be displayed in this react component) returned by the async action of the "products" redux reducer
+
 
 
   return (

@@ -10,6 +10,9 @@ const initialState = {
   subTotalPrice: 0,
 }
 
+
+// TODO: add the "get cart items(from the backend API)" async action
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState,

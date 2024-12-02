@@ -24,6 +24,8 @@ const Order = () => {
 
   // TODO: access the data fetched by the loader function present in this react component 
 
+  // TODO: access the orders (to be displayed in this react component) returned by the async action of the "orders" redux reducer
+
   return (
     <div className="lg:flex lg:gap-10 m-20">
       <div className="mb-10 lg:self-start border p-5 pt-3 shadow-md pr-16">

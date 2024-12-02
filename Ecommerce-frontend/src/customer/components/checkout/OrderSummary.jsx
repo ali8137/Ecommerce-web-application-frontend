@@ -15,6 +15,8 @@ const OrderSummary = () => {
 
   const dispatch = useDispatch()
 
+  // TODO: access the order items (to be displayed in this react component) returned by the async action of the "orders" redux reducer
+
   useEffect(() => {
     dispatch(calculateTotals())
   }, [cartItems, dispatch])
