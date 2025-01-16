@@ -19,10 +19,13 @@ import Order from './customer/components/order/Order.jsx'
 import OrderDetails from './customer/components/order/OrderDetails.jsx'
 import ProductsLayout from './customer/components/routing/ProductsLayout.jsx'
 import ProductOverview from './pages/ProductOverview.jsx'
+import { addProductToCartAction } from './customer/components/productDetails/ProductDetails.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+    {/* TODO: add the loaders  */}
+
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         {/* removed "/women" or "/men" routes because adding them is bringing bad
@@ -34,21 +37,29 @@ const router = createBrowserRouter(
           path=":categoryName/:productsectionName/:productItemName"
           element={<ProductsLayout />}
         >
-          {/* no common layout in this parent route, i used nested routing here for the sake of just having common path URL and i used <Outlet> for alternative swapping between components of the child routes */}
+          {/* no common layout in this parent route, i used nested routing here for the sake of just 
+          having common path URL and i used <Outlet> for alternative swapping 
+          between components of the child routes */}
           <Route index element={<Productslisting />} />
-          <Route path=":productId" element={<ProductOverview />} />
+          <Route path=":productId" element={<ProductOverview />} action={addProductToCartAction} />
         </Route>
         <Route path="shopping-cart" element={<CartContainer />} />
         <Route path="checkout-process" element={<HorizontalLinearStepper />} />
         <Route path="order" element={<Order />} />
         <Route path="order-details" element={<OrderDetails />} />
+        {/* TODO: add a route for the profile of the user. and add the definition of its react components (a react component mainly <UserProfile>). and access the user info from the backend through the "authentication" redux reducer (done in react component <Navigation>) */}
+        {/* TODO: add a route for the admin dashboard. and add the definition of its react components and its reducx toolkits */}
       </Route>
 
       {/* the below addition is when i wanted to test the react-router <Form /> */}
       {/* <Route action={action} path="/adasda" element={<HorizontalLinearStepper />} />
       <Route path="/submit" element={<HomePage />} /> */}
       {/* <Route path="/submit" action={action} element={<HomePage />} /> */}
-      {/* if we used the action prop inside a route other than the route of the react component that contains the <Form> component which this above action prop is attached/associated/relative to, then in this case the action function inside this react component will mount/rerender the react component of the above route where action prop was added  */}
+      {/* if we used the action prop inside a route other than the route of the 
+      react component that contains the <Form> component which this above action 
+      prop is attached/associated/relative to, then in this case the action function 
+      inside this react component will mount/rerender the react component of 
+      the above route where action prop was added  */}
     </>
   )
 )

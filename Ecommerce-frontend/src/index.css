@@ -3,6 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
   background-color: white;
+
+  /* TODO: documentation: added the below style to make the background color dynamic in the react component ProductDetails */
+  --dynamic-bg-color: gray;
 }
 
 
@@ -10,6 +13,11 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+}
+
+/* TODO: documentation: added the below style to make the background color dynamic in the react component ProductDetails */
+.bg-dynamic {
+  background-color: var(--dynamic-bg-color);
 }
 
 

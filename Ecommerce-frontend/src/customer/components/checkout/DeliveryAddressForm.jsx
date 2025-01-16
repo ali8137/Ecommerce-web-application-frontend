@@ -28,6 +28,8 @@ const DeliveryAddressForm = () => {
   }
 
   return (
+
+    // TODO: change the below html <form> to react router <Form>. check the code in the far bottom of this file
     <form onSubmit={handleSubmit}>
       <Box sx={{ border: `1px solid ${grey[400]}`, borderRadius: 2, p: 4 }}>
         {/* <Grid container sx={{}}> */}

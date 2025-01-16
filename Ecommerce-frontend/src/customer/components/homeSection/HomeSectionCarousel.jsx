@@ -4,7 +4,10 @@ import HomeSectionProduct from './HomeSectionProduct'
 import { Button, useMediaQuery } from '@mui/material';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getProducts } from '../../../redux/features/products/productsSlice';
+import { getProductsByCategory } from '../../../utils/api';
 
 
 
@@ -28,7 +31,85 @@ const responsive = {
 // React.memo() below prevent the re-rendering of the below component in case its parent re-renders unless the cause of rerendering of the parent component is the prop passed to the below component
 const HomeSectionCarousel = (prop) => {
 
-  const {dataObject} = prop;
+  
+  // // before dynamically fetching data from the backend using API --- beginning
+  // const {dataObject} = prop;
+  // const {dataObject: productsCollection} = prop;
+  // // - the above means to make the variable dataObject to store the value of 
+  // //   the key dataObject in the prop object. and to store the value of this dataObject variable 
+  // //   in the variable productsCollection
+  // // before dynamically fetching data from the backend using API --- end
+
+  const { categoryId } = prop;
+  /* TODO: the values of the categoryId are based on the values of 
+  the categories in the database */
+  
+  
+  
+  
+  
+  // const { products, isLoading } = useSelector((store) => store.products)
+
+  // const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(getProducts({
+  //     categoryId: categoryId
+  //     // or:
+  //     // categoryId
+  //   }))
+  //   // - the above means pass an object with the key categoryId and the value of the key 
+  //   //   is the value of the variable categoryId
+  // }, [dispatch, categoryId])
+
+
+  const [products, setProducts] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const [categoryTitle, setCategoryTitle] = useState('')
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getProductsByCategory(categoryId);
+        setProducts(data);
+      } catch (error) {
+        setError(error);
+        console.error(error);
+      }
+      finally {
+        setIsLoading(false);
+      }
+    
+    }
+    
+    // console.log("products: ", products)
+
+    fetchProducts();
+  }, [categoryId]);
+
+
+    useEffect(() => {
+      let categoryName = ''
+      let currentCategory = products?.content[0]?.category
+      // console.log("currentCategory: ", currentCategory)
+      // console.log("products: ", products)
+
+      while (currentCategory?.parentCategory != null) {
+        currentCategory = currentCategory?.parentCategory
+      }
+      // console.log("category: ", currentCategory)
+
+      categoryName = currentCategory?.name
+
+      setCategoryTitle(categoryName + ' ' + products?.content[0]?.category.name)
+        
+    }, [products])
+
+
+
   const [activeIndex, setActiveIndex] = useState(0);
   const isMobile = useMediaQuery('(max-width: 768px)');
   // or method 2 (without using library):
@@ -47,10 +128,18 @@ const HomeSectionCarousel = (prop) => {
   //   }
   // })
   
+  // // before dynamically fetching data from the backend using API --- beginning
+  // // const products = men_shirts.map((product) => <HomeSectionCarouselItem image={product.imageUrl} brand={product.brand} title={product.title} key={product.id} />)
+  // const products = useMemo(() => dataObject?.map((product) => (
+  //   <HomeSectionProduct {...product} key={product.id} />
+  // )), [dataObject]);
+  // // used useMemo() just to improve performance and avoid redoing the same functionality during each re-render
+  // // before dynamically fetching data from the backend using API --- end
+  
   // const products = men_shirts.map((product) => <HomeSectionCarouselItem image={product.imageUrl} brand={product.brand} title={product.title} key={product.id} />)
-  const products = useMemo(() => dataObject?.map((product) => (
+  const productsList = useMemo(() => products?.content?.map((product) => (
     <HomeSectionProduct {...product} key={product.id} />
-  )), [dataObject]);
+  )), [products]);
   // used useMemo() just to improve performance and avoid redoing the same functionality during each re-render
   
   const slidePrev = () => setActiveIndex(activeIndex - 1)
@@ -74,12 +163,35 @@ const HomeSectionCarousel = (prop) => {
 
     // console.log("child component re-render")
 
+
+  if (isLoading) {
+    return (
+      <div className="m-8">
+        <h1 className="text-3xl font-bold">loading...</h1>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="m-8">
+        <h1 className="text-3xl font-bold">error: {error.message}</h1>
+      </div>
+    )
+  }
+  
   return (
     <div className="relative px-4 py-8 lg:px-8 border-[1px] border-gray-300 rounded-sm m-8">
-      <h1 className="text-3xl font-bold mb-4">
+      {/* before dynamically fetching data from the backend using API --- beginning */}
+      {/* <h1 className="text-3xl font-bold mb-4">
         {dataObject[0]?.topLavelCategory+
           ' ' +
         dataObject[0]?.thirdLavelCategory}
+      </h1> */}
+      {/* before dynamically fetching data from the backend using API --- end */}
+
+      <h1 className="text-3xl font-bold mb-4">
+        {categoryTitle}
       </h1>
 
       {/* check this chat with chatGPT to better understand react alice carousel "https://chatgpt.com/share/1aacf200-8765-4dba-8435-cd8d96cb41a2" */}
@@ -88,7 +200,7 @@ const HomeSectionCarousel = (prop) => {
         // the above is to disable the default mouse tracking feature of the library
         // mouseTracking={isMobile}
         mouseTracking
-        items={products}
+        items={productsList}
         responsive={responsive}
         controlsStrategy="alternate"
         disableButtonsControls
@@ -126,7 +238,7 @@ const HomeSectionCarousel = (prop) => {
         </Button>
       )}
 
-      {!isMobile && activeIndex != products.length - 5 && (
+      {!isMobile && activeIndex < products?.content.length - 5 && (
         <Button
           // size="small"
           variant="contained"

@@ -42,7 +42,7 @@ const CartOrderSummary = () => {
               size="large"
               sx={{ width: '100%' }}
 
-              onClick={() => navigate('/checkoutProcess')}
+              onClick={() => navigate('/checkout-process')}
               // the path in the above
             >
               Checkout

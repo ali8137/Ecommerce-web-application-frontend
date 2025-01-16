@@ -32,6 +32,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { navigation } from './navigationData'
+// TODO: replace the above navigation in this component with the names of categories from the backend/database
 import { useSelector } from 'react-redux'
 import {
   NavLink,
@@ -118,6 +119,9 @@ export default function Navigation() {
   // was trying to use the below to programmatically close the <PopoverPanel> down below
   // const close = useClose()
 
+
+  // TODO: access the "authentication" (register, login, logout and user profile ) redux reducer to send requests to the backend to register, login, logout and get the user profile
+  
   return (
     <div className="bg-white">
       {/* this part is for mobile screens --------- beginning */}
@@ -520,7 +524,7 @@ export default function Navigation() {
                     <span className="sr-only">items in cart, view bag</span>
                   </a> */}
                   <NavLink
-                    to='shoppingCart'
+                    to='shopping-cart'
                     className="group relative -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon
