@@ -12,7 +12,7 @@ export const navigation = {
           name: 'New Arrivals',
           href: '/',
           imageSrc:
-            'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
+            'https://tailwindui.com/plus/img/ecommerce-images/mega-menu-category-01.jpg',
           imageAlt:
             'Models sitting back to back, wearing Basic Tee in black and bone.',
         },
@@ -20,7 +20,7 @@ export const navigation = {
           name: 'Basic Tees',
           href: '/',
           imageSrc:
-            'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
+            'https://tailwindui.com/plus/img/ecommerce-images/mega-menu-category-02.jpg',
           imageAlt:
             'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
         },
@@ -29,17 +29,28 @@ export const navigation = {
         {
           id: 'clothing',
           name: 'Clothing',
+          // items: [
+          //   { name: 'Tops', id: 'top', href: 'women/clothing/tops' },
+          //   { name: 'Dresses', id: 'women_dress', href: '#' },
+          //   { name: 'Women Jeans', id: 'women_jeans' },
+          //   { name: 'Lengha Choli', id: 'lengha_choli' },
+          //   { name: 'Sweaters', id: 'sweater' },
+          //   { name: 'T-Shirts', id: 't-shirt' },
+          //   { name: 'Jackets', id: 'jacket' },
+          //   { name: 'Gouns', id: 'gouns' },
+          //   { name: 'Sarees', id: 'saree' },
+          //   { name: 'Kurtas', id: 'kurtas' },
+          // ],
           items: [
-            { name: 'Tops', id: 'top', href: 'women/clothing/tops' },
-            { name: 'Dresses', id: 'women_dress', href: '#' },
-            { name: 'Women Jeans', id: 'women_jeans' },
-            { name: 'Lengha Choli', id: 'lengha_choli' },
-            { name: 'Sweaters', id: 'sweater' },
-            { name: 'T-Shirts', id: 't-shirt' },
-            { name: 'Jackets', id: 'jacket' },
-            { name: 'Gouns', id: 'gouns' },
-            { name: 'Sarees', id: 'saree' },
-            { name: 'Kurtas', id: 'kurtas' },
+            { name: 'Tops', id:"top", href: 'women/clothing/tops' },
+            { name: 'Dresses', id:"dresses", href: '#' },
+            { name: 'Pants', id: "Pants", href: '#' },
+            { name: 'Denim', id: "Denim", href: '#' },
+            { name: 'Sweaters', id: "Sweaters", href: '#' },
+            { name: 'T-Shirts', id: "T-Shirts", href: '#' },
+            { name: 'Jackets', id: "Jackets", href: '#' },
+            { name: 'Activewear', id: "Activewear", href: '#' },
+            { name: 'Browse All', id: "Browse All", href: '#' },
           ],
         },
         {

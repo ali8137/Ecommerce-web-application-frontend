@@ -32,6 +32,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { navigation } from './navigationData'
+// TODO: replace the above navigation in this component with the names of categories from the backend/database
 import { useSelector } from 'react-redux'
 import {
   NavLink,

@@ -6,7 +6,7 @@ import ProductDetails from '../customer/components/productDetails/ProductDetails
 
 const ProductOverview = () => {
 
-  // TODO: access the sngle product (to be displayed in this react component) returned by the async action of the "products" redux reducer
+  // TODO: access the single product (to be displayed in this react component) returned by the async action of the "products" redux reducer
 
   return (
     <div>

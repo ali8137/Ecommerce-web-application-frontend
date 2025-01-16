@@ -1,47 +1,73 @@
-import { useState } from 'react'
-import { women_dress } from '../../data/women_dress'
+// import { useState } from 'react'
+// import { women_dress } from '../../data/women_dress'
 // the name of the "variable" after import is the name of the json file we are dragging the data from. this is when we are importing json data
-import { women_jeans } from '../../data/women_jeans'
-import { men_shirt } from '../../data/men_shirt'
-import { women_top } from '../../data/women_top'
-import { men_jeans } from '../../data/men_jeans'
-import { women_gowns } from '../../data/women_gowns'
-import { women_attire } from '../../data/women_attire'
-import { men_pants } from '../../data/men_pants'
-import { men_shoes } from '../../data/men_shoes'
+// import { women_jeans } from '../../data/women_jeans'
+// import { men_shirt } from '../../data/men_shirt'
+// import { women_top } from '../../data/women_top'
+// import { men_jeans } from '../../data/men_jeans'
+// import { women_gowns } from '../../data/women_gowns'
+// import { women_attire } from '../../data/women_attire'
+// import { men_pants } from '../../data/men_pants'
+// import { men_shoes } from '../../data/men_shoes'
 import MemorizedHomeSectionCarousel from './MemorizedHomeSectionCarousel'
 
 const HomeSection = () => {
-  // TODO: I beleive there must be changes to be doen here when it comes to whether the below variables/data must be states or not
+  // finished-TODO: I beleive there must be changes to be doen here when it comes to whether the below variables/data must be states or not
 
-  // TODO: access the data fetched by the loader function present in the component <HomePage>. and pass this data as props to the below children components
+  // finished-TODO: access the data fetched by the loader function present in the component <HomePage>. and pass this data as props to the below children components
+  // related to the above note: loader fetching is not suitable for this role
 
-  // before dynamically fetching data from the backend using API:
-  const [men_shirt_state] = useState(men_shirt.slice(0, 10))
-  // slice() method to create a new array with the first 10 elements of the original array
-  const [women_dress_state] = useState(women_dress.slice(0, 10))
-  // we can directly use javascript methods on the imported json data
-  const [men_jeans_state] = useState(men_jeans.slice(0, 10))
-  const [women_top_state] = useState(women_top.slice(0, 10))
-  const [men_shoes_state] = useState(men_shoes.slice(0, 10))
-  const [women_gowns_state] = useState(women_gowns.slice(0, 10))
-  const [men_pants_state] = useState(men_pants.slice(0, 10))
-  const [women_attire_state] = useState(women_attire.slice(0, 10))
-  const [women_jeans_state] = useState(women_jeans.slice(0, 10))
+  // // before dynamically fetching data from the backend using API --- beginning
+  // // before dynamically fetching data from the backend using API:
+  // const [men_shirt_state] = useState(men_shirt.slice(0, 10))
+  // // slice() method to create a new array with the first 10 elements of the original array
+  // // const [women_dress_state] = useState(women_dress.slice(0, 10))
+  // // we can directly use javascript methods on the imported json data
+  // const [men_jeans_state] = useState(men_jeans.slice(0, 10))
+  // const [women_top_state] = useState(women_top.slice(0, 10))
+  // const [men_shoes_state] = useState(men_shoes.slice(0, 10))
+  // const [women_gowns_state] = useState(women_gowns.slice(0, 10))
+  // const [men_pants_state] = useState(men_pants.slice(0, 10))
+  // const [women_attire_state] = useState(women_attire.slice(0, 10))
+  // const [women_jeans_state] = useState(women_jeans.slice(0, 10))
+  // // before dynamically fetching data from the backend using API --- end
 
   // any change in any of the above states will cause the re-rendering of all the child components below whether this changed state was the one passed for the child component or not. to prevent that we can use wrap the definition of the below child components with React.memo(), which will do a shallow comparison for the prop. if React.memo() shallow comparison could not prevent the re-rendering for certain case like re-rendering due to re-definition of a function defined in the parent component, then in this case to prevent that in case the re-rendering is expensive, you can use useMemo() or useCallback()
 
+  // TODO: the below list must be better made dynamic by fetching the categories from the backend, and then pass there ids to the below components
+
   return (
     <section>
-      <MemorizedHomeSectionCarousel dataObject={men_shirt_state} />
-      <MemorizedHomeSectionCarousel dataObject={women_dress_state} />
-      <MemorizedHomeSectionCarousel dataObject={men_jeans_state} />
-      <MemorizedHomeSectionCarousel dataObject={women_top_state} />
-      <MemorizedHomeSectionCarousel dataObject={men_shoes_state} />
-      <MemorizedHomeSectionCarousel dataObject={women_gowns_state} />
-      <MemorizedHomeSectionCarousel dataObject={men_pants_state} />
-      <MemorizedHomeSectionCarousel dataObject={women_attire_state} />
-      <MemorizedHomeSectionCarousel dataObject={women_jeans_state} />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={men_shirt_state}*/ categoryId={7}
+      />
+      {/* TODO: developer-constraint: the values of the categoryId are based on the values of the
+      categories in the database  */}
+      {/* before dynamically fetching data from the backend using API --- beginning */}
+      {/* <MemorizedHomeSectionCarousel dataObject={women_dress_state} /> */}
+      {/* before dynamically fetching data from the backend using API --- end */}
+      <MemorizedHomeSectionCarousel categoryId={6} />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={men_jeans_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={women_top_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={men_shoes_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={women_gowns_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={men_pants_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={women_attire_state}*/ categoryId={6}
+      />
+      <MemorizedHomeSectionCarousel
+        /*dataObject={women_jeans_state}*/ categoryId={6}
+      />
     </section>
   )
 

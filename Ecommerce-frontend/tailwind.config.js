@@ -15,4 +15,15 @@ export default {
     aspectRatio
     // the above was added when using the store navigation provided by tailwindui
   ],
+  
+  // TODO: documnetation: i have added the below part to try to resolve the issue of tailwind not recognising the 
+  // background color classes when using dynamic effect
+  safelist: [
+    {
+      pattern: /bg-[a-z]+-d{2,3}/
+    },
+    {
+      pattern: /bg-(black|white)/
+    }
+  ]
 }

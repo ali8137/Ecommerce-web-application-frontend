@@ -19,6 +19,7 @@ import Order from './customer/components/order/Order.jsx'
 import OrderDetails from './customer/components/order/OrderDetails.jsx'
 import ProductsLayout from './customer/components/routing/ProductsLayout.jsx'
 import ProductOverview from './pages/ProductOverview.jsx'
+import { addProductToCartAction } from './customer/components/productDetails/ProductDetails.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +41,7 @@ const router = createBrowserRouter(
           having common path URL and i used <Outlet> for alternative swapping 
           between components of the child routes */}
           <Route index element={<Productslisting />} />
-          <Route path=":productId" element={<ProductOverview />} />
+          <Route path=":productId" element={<ProductOverview />} action={addProductToCartAction} />
         </Route>
         <Route path="shopping-cart" element={<CartContainer />} />
         <Route path="checkout-process" element={<HorizontalLinearStepper />} />
