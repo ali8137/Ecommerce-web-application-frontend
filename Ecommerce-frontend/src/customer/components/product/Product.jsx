@@ -310,9 +310,11 @@ export default function Product() {
       setIsCategoriesLoading(true)
       try {
         const response = await getCategories()
+
+        // console.log("response: ", response);
         setSubCategories(response)
       } catch (err) {
-        console.error('error', err)
+        console.error('error fetching categories: ', err)
         setError(err)
       } finally {
         setIsCategoriesLoading(false)
@@ -409,7 +411,7 @@ export default function Product() {
         const response = await getProductAttributes()
         setProductAttributes(response)
       } catch (err) {
-        console.error('error: ', err)
+        console.error('error fetching product attributes: ', err)
         // setAttributesError(err);
       } finally {
         // setIsAttributesLoading(false);

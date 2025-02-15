@@ -8,6 +8,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 
 const url = "http://localhost:8088/api/products";
+// TODO: it is better to add the above url in the development .env.development file
+
+const authToken =
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzM5NTM3MzkyLCJleHAiOjE3NDA0MDEzOTJ9.IsXGRK049-yLacKA5r8d2HtlQvtVLdBPOooIZMg0tj8'
+// TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
+// TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
 const initialState = {
     products: [],
@@ -42,7 +48,7 @@ export const getProducts = createAsyncThunk(
           pageNumber = 0,
           pageSize = 10,
           sortBy = 'id',
-          sortDirection = 'ASC'
+          sortDirection = 'ASC',
           // or
           // sortDirection = 'DESC'
           // - i could have choosen not to not add the above 3 parameters, because their
@@ -67,12 +73,26 @@ export const getProducts = createAsyncThunk(
 
         // console.log("query params", queryParams.toString())
 
+        // TODO: for better readability, the below is better to be written as `${}` rather than ""
         const response = await axios(
-          url + '/products-criteria-apiV2?' + queryParams.toString()
+          url + '/products-criteria-apiV2?' + queryParams.toString(),
+          {
+            headers: {
+              // 'Content-Type': 'application/json',
+              // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
         )
         // or:
         // const response = await axios(`${url}/products-criteria-api?${queryParams.toString()}`);
         // console.log("products", response.data)
+
+        // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
+
+        // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
+        // the interceptor) and then apply the get, post, put, delete methods
+        
         return response.data
       } catch (err) {
         console.error("error fetching products", err.toJSON?.() || err)
@@ -97,10 +117,23 @@ export const getProductById = createAsyncThunk(
 
       // console.log('product id', productId)
 
-      const response = await axios(url + '/' + productId)
+      // TODO: for better readability, the below is better to be written as `${}` rather than ""
+      const response = await axios(url + '/' + productId, {
+        headers: {
+          // 'Content-Type': 'application/json',
+          // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
+          Authorization: `Bearer ${authToken}`,
+        },
+      })
       // or:
       // const response = await axios(`${url}/${productId}`);
       // console.log("product", response.data)
+
+      // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
+
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
+      // the interceptor) and then apply the get, post, put, delete methods
+      
       return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue({ error: error.message })
@@ -137,7 +170,7 @@ const productsSlice = createSlice({
                 // - action parameter here includes the payload, which is the data being 
                 //   fetched/returned from the above API call getProducts
                 state.isLoading = false;
-                state.products = action.payload.content;
+                state.products = action.payload.content;''
                 // console.log("isLoading", state.isLoading, "products", state.products);
                 state.paginationData = action.payload.page;
             })

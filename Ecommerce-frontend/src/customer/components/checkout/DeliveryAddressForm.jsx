@@ -12,6 +12,7 @@ import { grey } from '@mui/material/colors'
 const DeliveryAddressForm = () => {
 
 
+  // another way to handle the submission of the form is by using <Form> and action function also
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -26,10 +27,11 @@ const DeliveryAddressForm = () => {
     }
     console.log(data)
   }
+  // TODO: add the disabled, isSubmitting, errorResponse (or isError) and replace state of the <form>
 
   return (
-
-    // TODO: change the below html <form> to react router <Form>. check the code in the far bottom of this file
+    // finished-TODO: change the below html <form> to react router <Form>. check the code in the far bottom of this file
+    // related to the above note: no need to do the above, because i have implemented <Form> in the react component "ProductDetails"
     <form onSubmit={handleSubmit}>
       <Box sx={{ border: `1px solid ${grey[400]}`, borderRadius: 2, p: 4 }}>
         {/* <Grid container sx={{}}> */}
@@ -84,6 +86,26 @@ const DeliveryAddressForm = () => {
               // }}
 
               // sx={{ width: '100%' }}
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               fullWidth
               autoComplete="given-name"
             />
@@ -108,26 +130,46 @@ const DeliveryAddressForm = () => {
               name="lastName"
               // the name is important to use it when handling the submitted data of the form
               fullWidth
-              sx={
-                {
-                  // border: '2px solid yellow',
-                  // width: '100%',
-                  // height: '100%', // Sets the outer container's height
-                  // '& .MuiInputBase-root': {
-                  //   height: '100%', // Ensures the input field stretches to the container's height
-                  // },
-                  // '& .MuiOutlinedInput-input': {
-                  //   padding: '12px 14px', // Adjust padding for the input text area
-                  // },
-                  // '& .MuiInputLabel-root': {
-                  //   top: '50%', // Move label to the middle vertically
-                  //   transform: 'translateY(-50%) translateX(15%)', // Adjust for the label's height (center it perfectly)
-                  // },
-                  // '& .MuiInputLabel-shrink': {
-                  //   transform: 'translateY(-200%) scale(0.75)', // Maintain correct position when label shrinks
-                  // },
-                }
-              }
+              // sx={
+              //   {
+              //     // border: '2px solid yellow',
+              //     // width: '100%',
+              //     // height: '100%', // Sets the outer container's height
+              //     // '& .MuiInputBase-root': {
+              //     //   height: '100%', // Ensures the input field stretches to the container's height
+              //     // },
+              //     // '& .MuiOutlinedInput-input': {
+              //     //   padding: '12px 14px', // Adjust padding for the input text area
+              //     // },
+              //     // '& .MuiInputLabel-root': {
+              //     //   top: '50%', // Move label to the middle vertically
+              //     //   transform: 'translateY(-50%) translateX(15%)', // Adjust for the label's height (center it perfectly)
+              //     // },
+              //     // '& .MuiInputLabel-shrink': {
+              //     //   transform: 'translateY(-200%) scale(0.75)', // Maintain correct position when label shrinks
+              //     // },
+              //   }
+              // }
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               autoComplete="given-name"
             />
             {/* </div> */}
@@ -155,6 +197,8 @@ const DeliveryAddressForm = () => {
                 name="address"
                 // the name is important to use it when handling the submitted data of the form
                 fullWidth
+                // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+                // reusability, and use the style for all the below <TextField> components
                 sx={{
                   // border: '2px solid yellow',
                   // width: '100%',
@@ -186,6 +230,26 @@ const DeliveryAddressForm = () => {
               // the name is important to use it when handling the submitted data of the form
 
               // sx={{ width: '100%' }}
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               fullWidth
               multiline
               rows={4}
@@ -200,6 +264,26 @@ const DeliveryAddressForm = () => {
               // sx={{ width: '100%' }}
               name="city"
               // the name is important to use it when handling the submitted data of the form
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               fullWidth
               autoComplete="given-name"
             />
@@ -211,6 +295,26 @@ const DeliveryAddressForm = () => {
               label="state/province/region"
               fullWidth
               // sx={{ width: '100%' }}
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               name="state"
               // the name is important to use it when handling the submitted data of the form
               autoComplete="given-name"
@@ -225,6 +329,24 @@ const DeliveryAddressForm = () => {
               // the name is important to use it when handling the submitted data of the form
               fullWidth
               // sx={{ width: '100%' }}
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               autoComplete="shipping postal-code"
             />
           </Grid2>
@@ -235,6 +357,26 @@ const DeliveryAddressForm = () => {
               label="phone number"
               name="phoneNumber"
               // the name is important to use it when handling the submitted data of the form
+              // TODO: add the below stylign as a dedicated tailwind style in the top of this file to enhance
+              // reusability, and use the style for all the below <TextField> components
+              sx={{
+                // border: '2px solid yellow',
+                // width: '100%',
+                height: '100%', // Sets the outer container's height
+                '& .MuiInputBase-root': {
+                  height: '100%', // Ensures the input field stretches to the container's height
+                },
+                '& .MuiOutlinedInput-input': {
+                  padding: '12px 14px', // Adjust padding for the input text area
+                },
+                '& .MuiInputLabel-root': {
+                  top: '50%', // Move label to the middle vertically
+                  transform: 'translateY(-50%) translateX(20px)', // Adjust for the label's height (center it perfectly)
+                },
+                '& .MuiInputLabel-shrink': {
+                  transform: 'translateY(-300%) scale(0.75) translateX(20px)', // Maintain correct position when label shrinks
+                },
+              }}
               fullWidth
               // sx={{ width: '100%' }}
             />

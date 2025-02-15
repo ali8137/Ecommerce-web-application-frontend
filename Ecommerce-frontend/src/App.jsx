@@ -20,11 +20,19 @@ import OrderDetails from './customer/components/order/OrderDetails.jsx'
 import ProductsLayout from './customer/components/routing/ProductsLayout.jsx'
 import ProductOverview from './pages/ProductOverview.jsx'
 import { addProductToCartAction } from './customer/components/productDetails/ProductDetails.jsx'
+import Payment from './customer/components/payment/Payment.jsx'
+import PaymentSuccessCallback from './customer/components/payment/PaymentSuccessCallback.jsx'
+import PaymentCancelCallback from './customer/components/payment/PaymentCancelCallback.jsx'
+import { store } from './redux/store.jsx'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { getCartItems } from './customer/components/cart/redux/features/cartSlice/cartSlice.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
     {/* TODO: add the loaders  */}
+    {/* TODO: add protection for the suitable endpoints, for better UX */}
 
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
@@ -41,10 +49,17 @@ const router = createBrowserRouter(
           having common path URL and i used <Outlet> for alternative swapping 
           between components of the child routes */}
           <Route index element={<Productslisting />} />
-          <Route path=":productId" element={<ProductOverview />} action={addProductToCartAction} />
+          <Route path=":productId" element={<ProductOverview />} action={addProductToCartAction(store)} />
+          {/* the above "store" is the redux store */}
+          {/* the above is how we can pass arguments/parameters to an action function */}
         </Route>
         <Route path="shopping-cart" element={<CartContainer />} />
         <Route path="checkout-process" element={<HorizontalLinearStepper />} />
+        <Route path="payment" element={<Payment />} >
+          <Route index element={<Payment />} />
+          <Route path='success' element={<PaymentSuccessCallback />} />
+          <Route path='cancel' element={<PaymentCancelCallback />} />
+        </Route>
         <Route path="order" element={<Order />} />
         <Route path="order-details" element={<OrderDetails />} />
         {/* TODO: add a route for the profile of the user. and add the definition of its react components (a react component mainly <UserProfile>). and access the user info from the backend through the "authentication" redux reducer (done in react component <Navigation>) */}
@@ -65,9 +80,17 @@ const router = createBrowserRouter(
 )
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCartItems())
+  }, [dispatch])
+
   return (
     <>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} /*context={{store}}*/ />
+      {/* react router v6 does not support the context prop */}
     </>
   )
 }
