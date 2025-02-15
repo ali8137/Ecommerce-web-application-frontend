@@ -3,25 +3,30 @@ import { Button } from '@mui/material'
 import CartProduct from './CartProduct'
 import { openModal } from './redux/features/modal/modalSlice'
 import {
-  useEffect,
+  // useEffect,
   // , useRef
 } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { calculateTotals } from './redux/features/cartSlice/cartSlice'
+// import { calculateTotals } from './redux/features/cartSlice/cartSlice'
 import CartOrderSummary from './CartOrderSummary'
 
 const Cart = () => {
   const {
     cartItems,
-    //  subTotalPrice,
+    // subTotalPrice,
     totalAmount,
   } = useSelector((store) => store.cart)
 
+  console.log('cartItems', cartItems)
+  console.log('totalAmount', totalAmount)
+
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(calculateTotals())
-  }, [cartItems, dispatch])
+  // removed after integrating the backend ---------- beginning
+  // useEffect(() => {
+    //   dispatch(calculateTotals())
+    // }, [cartItems, dispatch])
+    // removed after integrating the backend ---------- end
 
   //   console.log('rerender')
 
@@ -61,7 +66,10 @@ const Cart = () => {
             </h1>
           ) : (
             <div>
-              {cartItems.slice(0, 3).map((product) => (
+              {/* {cartItems.slice(0, 3).map((product) => (
+                <CartProduct key={product.id} {...product} hasButtons={true} />
+              ))} */}
+              {cartItems.map((product) => (
                 <CartProduct key={product.id} {...product} hasButtons={true} />
               ))}
             </div>
@@ -69,7 +77,7 @@ const Cart = () => {
         </div>
         {/* order summary */}
         <div className="lg:mx-5 px-5 pb-5 lg:w-2/5 lg:self-start flex flex-col border-2 rounded-xl shadow-xl">
-          <CartOrderSummary />
+          <CartOrderSummary forOrderComponent={false} />
           <div className="pt-4">
             <Button
               variant="outlined"

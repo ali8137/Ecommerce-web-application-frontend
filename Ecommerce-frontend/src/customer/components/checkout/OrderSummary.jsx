@@ -1,25 +1,30 @@
 // import React from 'react'
 
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import CartProduct from '../cart/CartProduct'
 import CartOrderSummary from '../cart/CartOrderSummary'
-import { useDispatch, useSelector } from 'react-redux'
-import { calculateTotals } from '../cart/redux/features/cartSlice/cartSlice'
+import { /*useDispatch,*/ useSelector } from 'react-redux'
+// import { calculateTotals } from '../cart/redux/features/cartSlice/cartSlice'
 
-const OrderSummary = () => {
+const OrderSummary = (prop) => {
   const {
     cartItems,
     //  subTotalPrice,
     totalAmount,
   } = useSelector((store) => store.cart)
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   // TODO: access the order items (to be displayed in this react component) returned by the async action of the "orders" redux reducer
 
-  useEffect(() => {
-    dispatch(calculateTotals())
-  }, [cartItems, dispatch])
+  // before integrating the "orders" redux reducer
+  // useEffect(() => {
+  //   dispatch(calculateTotals())
+  // }, [cartItems, dispatch])
+
+
+  const { onNext } = prop
+
   return (
     <div className="m-5">
       <div className="lg:mx-20 flex flex-col-reverse lg:flex-row l lg:justify-between pt-10">
@@ -39,7 +44,7 @@ const OrderSummary = () => {
         </div>
         {/* order summary */}
         <div className="lg:mx-5 px-5 pb-5 lg:w-2/5 lg:self-start border-2 rounded-xl shadow-xl">
-          <CartOrderSummary />
+          <CartOrderSummary forOrderComponent={true} onNext={onNext}/>
         </div>
       </div>
     </div>

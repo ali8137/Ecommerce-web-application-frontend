@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography'
 import DeliveryAddressForm from './DeliveryAddressForm'
 import AddressCard from './AddressCard'
 import OrderSummary from './OrderSummary'
+import Payment from '../payment/Payment'
 
 
 // TODO: add the loader function. this loader function will fetch the order items, and will call the util function requireAuth() function to check if the user is logged in or not
@@ -174,10 +175,10 @@ export default function HorizontalLinearStepper() {
               </div>
             </div>
           ) : activeStep === 2 ? (
-            <OrderSummary />
+            <OrderSummary onNext={handleNext}/>
           ) : (
-            <div>payment step</div>
-          )}
+            <Payment />
+          )}  
           {/* </Typography> */}
         </React.Fragment>
       )}

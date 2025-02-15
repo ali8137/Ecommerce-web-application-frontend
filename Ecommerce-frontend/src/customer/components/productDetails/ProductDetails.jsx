@@ -27,15 +27,26 @@ import { Radio, RadioGroup } from '@headlessui/react'
 import { Box, Rating } from '@mui/material'
 import LinearProgressWithLabel from './LinearProgressWithLabel'
 import ProductReviewCard from './ProductReviewCard'
-import { Form, redirect, useActionData, useParams } from 'react-router-dom'
+import {
+  Form,
+  redirect,
+  useActionData,
+  useNavigation,
+  useParams,
+} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductById } from '../../../redux/features/products/productsSlice'
-import { addCartItem } from '../../../utils/api'
+import {
+  addToCartRequest,
+  increaseItemQuantityClientSide,
+  increaseItemQuantityRequest,
+} from '../cart/redux/features/cartSlice/cartSlice'
+// import { addCartItem } from '../../../utils/api'
 // import { useNavigate } from 'react-router-dom'
 
-
-
-{/* before fetching the data from the backend ----- beginning */}
+{
+  /* before fetching the data from the backend ----- beginning */
+}
 // const product = {
 //   name: 'Basic Tee 6-Pack',
 //   price: '$192',
@@ -86,75 +97,124 @@ import { addCartItem } from '../../../utils/api'
 //   details:
 //     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
 // }
-{/* before fetching the data from the backend ----- end */}
+{
+  /* before fetching the data from the backend ----- end */
+}
 const reviews = { href: '#', average: 4, totalCount: 117 }
 
+// function waitFor(ms) {
+//   return new Promise((resolve) => setTimeout(resolve, ms))
+// }
 
-
-
-
-
-
-// - note that when having two forms inside one route/page, then whenn using action function, we need to 
-//   add a hidden <input> html element with the same name inside both forms. and based on this input 
+// - note that when having two forms inside one route/page, then whenn using action function, we need to
+//   add a hidden <input> html element with the same name inside both forms. and based on this input
 //   element, we can specify the logic of each form inside the action function.
 // - another way is to create a handleSubmit() function instead of an action function. and inside
-//   it we prevent the default behavior, and we can use the event parameter passed by default into 
-//   this function. and in case there is two forms, then add an id for each form, and based on the 
-//   id value, you specify the logic of each form inside the handleSubmit() function
-export const addProductToCartAction = async ({request}) => {
-  
-  const formData = await request.formData();
+//   it we prevent the default behavior, and we can use the event parameter passed by default into
+//   this function. and in case there is two forms, then add an id for each form, and based on the
+//   id value, you specify the logic of each form inside the handleSubmit() function. also, we can
+//   dedicate a different handleSubmit() functions for each form
+// - react router Form
+export const addProductToCartAction =
+  (store) =>
+  async ({ request /*context*/ }) => {
+    // can't use "context" above because react router v6 does not support the context prop
+    // console.log('context: ', context)
 
-  const productData = {
-    color: formData.get("color"),
-    size: formData.get("size")
-  };
+    // const store = context.store
+    // console.log('store: ', store)
 
-  console.log("productData: ", productData);
+    // const state = store.getState();
 
+    // const product = state.products.product;
+    // console.log("product: ", product);
 
-  if (!productData.color || !productData.size) {
-    return {
-      message: "Please select a color and size"
+    // await waitFor(2000)
+
+    const formData = await request.formData()
+
+    // access the product state from the redux store:
+    const state = store.getState()
+    // redux toolkit store
+    // - we can also import the redux store here instead of importing it in
+    //   the App.jsx and pass it to this action function
+    const product = state.products.product
+
+    console.log('product: ', product)
+
+    // access the form data to build the cart item object and pass it to the backend:
+    const productData = {
+      color: formData.get('color'),
+      size: formData.get('size'),
+      // product: product
+      product: {
+        id: product.id,
+      },
     }
-  }
-  
-  // the below path is the path that the user will be redirected into after the success of the API call/request:
-  // const pathName = new URL(request.url).searchParams.get("searchParam1");
-  // const pathName = "";
-  const pathName = new URL(request.url);
-  console.log("pathName: ", pathName);
-  // the above url is the current url of the frontend page
 
-  // send the request to the backend
-  try {
-    await addCartItem(productData)
-    
-    // return redirect(pathName)
-    // return null;
-    return;
-    // - the action function must return a result always, if you don't want to 
-    //   return anything, then return null or just return
-  }
-  catch (err) {
-    console.error('error: ', err)
-    return err
-    // - the action function must return a result always, if you don't want to
-    //   return anything, then return null or just return
+    console.log('productData: ', productData)
 
-    // setError(err)
-  } /*finally {
+    // if the user did not select a color or size, then return an error message:
+    if (!productData.color || !productData.size) {
+      return {
+        message: 'Please select a color and size',
+      }
+    }
+
+    // the below path is the path that the user will be redirected into after the success of the API call/request:
+    // const pathName = new URL(request.url).searchParams.get("searchParam1");
+    // const pathName = "";
+    // const pathName = new URL(request.url);
+    // console.log("pathName: ", pathName);
+    // // the above url is the current url of the frontend page
+
+    try {
+      // send the request to the backend:
+      const cartItems = store.getState().cart.cartItems
+      const existsInCart = cartItems.find(
+        (item) =>
+          item.product.id === productData.product.id &&
+          item.color === productData.color &&
+          item.size === productData.size
+      )
+      if (existsInCart) {
+        try {
+          store.dispatch(
+            increaseItemQuantityRequest({ cartItemId: existsInCart.id })
+          )
+        } catch (error) {
+          console.error(error)
+          return
+        }
+        // - the above is to make sure the backend processing has succeeded before moving 
+        //   into changing the UI in the line below to ensure consistency
+
+        store.dispatch(
+          increaseItemQuantityClientSide({ cartItemId: existsInCart.id })
+        )
+      } else store.dispatch(addToCartRequest({ productData: productData }))
+
+      // redirect the user to the next route/page, which is the shopping cart page:
+      return redirect('/shopping-cart')
+      // - this "return redirect("shopping-cart")" is different from the above line, the above URL is with '/' at
+      //   the beginning and the below one is without '/' at the beginning. this means that the below line
+      //   will redirect the user to the url "http://localhost:5173/currentRouteOrURL1/shopping-cart", while
+      //   the above line will redirect the user to the url "http://localhost:5173/shopping-cart"
+      // return null;
+      // return;
+      // - the action function must return a result always, if you don't want to
+      //   return anything, then return null or just return
+    } catch (err) {
+      console.error('error adding product to cart: ', err)
+      return err
+      // - the action function must return a result always, if you don't want to
+      //   return anything, then return null or just return
+
+      // setError(err)
+    } /*finally {
     setIsCategoriesLoading(false)
   }*/
-
-
-
-}
-
-
-
-
+  }
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -182,6 +242,9 @@ export default function ProductDetails() {
 
   // TODO: access the data fetched by the loader function present in the react component <ProductOverview>
 
+  // TODO: implement sending the user rating into the backend by either dedicating a state variable to store
+  // this rating, or by using a form
+
   // const routeParam = useParams();
   const { productId } = useParams()
   // console.log("routeParam", productId);
@@ -202,13 +265,14 @@ export default function ProductDetails() {
     // product?.qtyPerSizeAndColors[0]?.productSize || ''
     null
   )
-  // - the above are the default values of the properties "color" and "size" of 
+  // - the above are the default values of the properties "color" and "size" of
   //   the product in case the user haven't choosen any option
 
-
-  const actionErrorResponse = useActionData();
+  const actionErrorResponse = useActionData()
   // the error returned by the action function addProductToCartAction. this helps for better UX
 
+  // react router Form
+  const navigation = useNavigation()
 
   // TODO: the below must be better done using router loader function instead
   useEffect(() => {
@@ -270,7 +334,7 @@ export default function ProductDetails() {
   // }
   // this version of the function getBackgroundColor is not working as expected due to tailwind purging i believe ----- end
 
-  // TODO: documentation: this function dynamically changes the css style using plain css and not tailwind css 
+  // TODO: documentation: this function dynamically changes the css style using plain css and not tailwind css
   const getBackgroundColor = (color) => {
     // console.log("color", color)
 
@@ -427,11 +491,11 @@ export default function ProductDetails() {
                   })}
                   <div className="hidden col-span-3 px-16 mt-10 lg:grid lg:grid-cols-3 lg:gap-x-8">
                     {product?.images?.map((image, index) => {
+                      /* // display is hidden always
+                                             except for large screens it will
+                                             be "grid" */
                       if (index >= 0) return
                       {
-                        /* // display is hidden always
-                                               except for large screens it will
-                                               be "grid" */
                         <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                           <img
                             alt={image.alt || ''}
@@ -463,7 +527,6 @@ export default function ProductDetails() {
                     off
                   </p>
                 </div>
-
                 {/* Reviews */}
                 <div className="mt-6">
                   <h3 className="sr-only">ratings and Reviews</h3>
@@ -504,9 +567,13 @@ export default function ProductDetails() {
                     </a>
                   </div>
                 </div>
-
+                {/* react router Form */}
                 {/* <form className="mt-10"> */}
-                <Form method="post" className="mt-10">
+                <Form method="post" className="mt-10" replace>
+                  {/* replace means that when the user submits the form, and gets 
+                  redirected into a new route/page. then when the user clicks on the "go back" 
+                  button of the browser (and not the react router "go back" button). this replace feature is 
+                  needed only in certain cases (like the case of having authentication/register/login form) */}
                   {/* Colors */}
                   <div>
                     <h3 className="text-sm font-medium text-gray-900">Color</h3>
@@ -583,6 +650,7 @@ export default function ProductDetails() {
                               )}
                             />
                           </Radio>
+                          // TODO: remove the focus from the radio button just after the user clicks on the radio button, for better UX
                         ))}
                       </RadioGroup>
                     </fieldset>
@@ -705,6 +773,7 @@ export default function ProductDetails() {
                           ) */}
                             {/* before fecthing data from the backend ------- end */}
                           </Radio>
+                          // TODO: remove the focus from the radio button just after the user clicks on the radio button, for better UX
                         ))}
                       </RadioGroup>
                     </fieldset>
@@ -713,14 +782,24 @@ export default function ProductDetails() {
                   <button
                     type="submit"
                     className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-
                     // onSubmit={handleSubmit}
                     // onSubmit={() => addProductToCartAction()}
 
                     // disabled={!selectedSize || !selectedColor}
                     // // disable the button if the user hasn't choosen any option
+
+                    // react router Form
+                    disabled={navigation.state === 'submitting'}
+
+                    // onSubmit={dispatch(addToCartClientSide({ product }))}
+                    // - adding a handleSubmit function beside the action function will
+                    //   trigger both unless event.preventDefault() was called inside
+                    //   this handleSubmit function
                   >
-                    Add to cart
+                    {/* react router Form */}
+                    {navigation.state === 'submitting'
+                      ? 'Adding...'
+                      : 'Add to cart'}
                   </button>
 
                   {actionErrorResponse && (
@@ -728,7 +807,6 @@ export default function ProductDetails() {
                       {actionErrorResponse.message}
                     </p>
                   )}
-
                 </Form>
                 <div className="py-10 lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
                   {/* Description and details */}
@@ -779,7 +857,9 @@ export default function ProductDetails() {
           </div>
         )}
 
+        {/* TODO:  add a component where the user can enter his reviews and send them into the backend*/}
         {/* reviews and ratings */}
+        {/* TODO: make this section responsive to small screens */}
         <section className="mx-10">
           <h1 className="font-semibold text-lg mb-2">Reviews and Ratings</h1>
           <div className="flex justify-between border-gray-100 border-2 rounded-lg">

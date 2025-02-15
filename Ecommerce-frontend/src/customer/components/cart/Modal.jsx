@@ -2,11 +2,7 @@
 
 'use client'
 
-
-
 // this component is taken from tailwind ui ready components https://tailwindui.com/components/application-ui/overlays/modal-dialogs. then i added some changes
-
-
 
 // import { useState } from 'react'
 import {
@@ -18,22 +14,24 @@ import {
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from './redux/features/modal/modalSlice'
-import { clearCart } from './redux/features/cartSlice/cartSlice'
+import { clearCartClientSide, clearCartRequest } from './redux/features/cartSlice/cartSlice'
 
-export default function Modal(
+export default function Modal() {
   // prop
-) {
   // const [open, setOpen] = useState(true)
-  
-  const { isOpen } = useSelector((store) => store.modal)
 
+  const { isOpen } = useSelector((store) => store.modal)
 
   // const { open } = prop
 
   const dispatch = useDispatch()
 
   return (
-    <Dialog open={isOpen} onClose={() => dispatch(closeModal())} className="relative z-10">
+    <Dialog
+      open={isOpen}
+      onClose={() => dispatch(closeModal())}
+      className="relative z-10"
+    >
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
@@ -75,7 +73,19 @@ export default function Modal(
                 type="button"
                 onClick={() => {
                   // setOpen(false)
-                  dispatch(clearCart())
+                  // dispatch(clearCart())
+                  dispatch(() => {
+                    try {
+                      dispatch(clearCartRequest())
+                    } catch (error) {
+                      // console.error(error)
+                      return
+                    }
+                    // - the above is to make sure the backend processing has succeeded before moving
+                    //   into changing the UI in the line below to ensure consistency
+                    dispatch(clearCartClientSide())
+
+                  })
                   dispatch(closeModal())
                 }}
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
