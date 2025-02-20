@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import HorizontalLinearStepper from '../customer/components/checkout/HorizontalLinearStepper'
 
 const CheckoutProcess = () => {

@@ -1,57 +1,13 @@
-// import React from 'react'
 import { Button } from '@mui/material'
 import CartProduct from './CartProduct'
 import { openModal } from './redux/features/modal/modalSlice'
-import {
-  // useEffect,
-  // , useRef
-} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-// import { calculateTotals } from './redux/features/cartSlice/cartSlice'
 import CartOrderSummary from './CartOrderSummary'
 
 const Cart = () => {
-  const {
-    cartItems,
-    // subTotalPrice,
-    totalAmount,
-  } = useSelector((store) => store.cart)
-
-  console.log('cartItems', cartItems)
-  console.log('totalAmount', totalAmount)
+  const { cartItems, totalAmount } = useSelector((store) => store.cart)
 
   const dispatch = useDispatch()
-
-  // removed after integrating the backend ---------- beginning
-  // useEffect(() => {
-    //   dispatch(calculateTotals())
-    // }, [cartItems, dispatch])
-    // removed after integrating the backend ---------- end
-
-  //   console.log('rerender')
-
-  //   const scrollPosition = useRef(0)
-
-  //   useEffect(() => {
-  //     console.log('mounting')
-
-  //     window.scrollTo(0, scrollPosition.current)
-
-  //     console.log('mounting: scrollPosition.current', scrollPosition.current)
-
-  //     return () => {
-  //       console.log('unmounting')
-
-  //       scrollPosition.current = window.scrollY
-
-  //       console.log(
-  //         'unmounting: scrollPosition.current',
-  //         scrollPosition.current
-  //       )
-  //     }
-  //   }, [])
-  // the value of useRef() variable "scrollPosition" won't be stored across re-mounts, it will reset to its original value when the component is unmounted and then mounted. so, the above code is useless
-
   // TODO: access the data fetched by the loader function present in this react component
 
   return (
@@ -66,9 +22,6 @@ const Cart = () => {
             </h1>
           ) : (
             <div>
-              {/* {cartItems.slice(0, 3).map((product) => (
-                <CartProduct key={product.id} {...product} hasButtons={true} />
-              ))} */}
               {cartItems.map((product) => (
                 <CartProduct key={product.id} {...product} hasButtons={true} />
               ))}

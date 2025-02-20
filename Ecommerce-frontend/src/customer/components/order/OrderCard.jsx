@@ -1,13 +1,7 @@
-// import React from 'react'
 import AdjustIcon from '@mui/icons-material/Adjust'
 
 const OrderCard = (prop) => {
-  const {
-    imageUrl,
-    title,
-    discountedPrice,
-    color,
-  } = prop
+  const { imageUrl, title, discountedPrice, color } = prop
 
   return (
     <div className="space-y-6 lg:space-y-0 lg:flex lg:justify-between border p-2 shadow-black shadow-sm">
@@ -27,7 +21,9 @@ const OrderCard = (prop) => {
         <p>${discountedPrice}</p>
       </div>
       <div className="">
-        <AdjustIcon sx={{color: 'blue', opacity: '60%', width: '15px', mr: '5px'}}/>
+        <AdjustIcon
+          sx={{ color: 'blue', opacity: '60%', width: '15px', mr: '5px' }}
+        />
         <span>delivered on september 12 2024</span>
         <p className="text-sm text-gray-600">your item has been delivered</p>
       </div>

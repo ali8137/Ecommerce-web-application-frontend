@@ -1,10 +1,4 @@
-// import React from 'react'
-
 'use client'
-
-// this component is taken from tailwind ui ready components https://tailwindui.com/components/application-ui/overlays/modal-dialogs. then i added some changes
-
-// import { useState } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -14,15 +8,13 @@ import {
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from './redux/features/modal/modalSlice'
-import { clearCartClientSide, clearCartRequest } from './redux/features/cartSlice/cartSlice'
+import {
+  clearCartClientSide,
+  clearCartRequest,
+} from './redux/features/cartSlice/cartSlice'
 
 export default function Modal() {
-  // prop
-  // const [open, setOpen] = useState(true)
-
   const { isOpen } = useSelector((store) => store.modal)
-
-  // const { open } = prop
 
   const dispatch = useDispatch()
 
@@ -72,19 +64,14 @@ export default function Modal() {
               <button
                 type="button"
                 onClick={() => {
-                  // setOpen(false)
-                  // dispatch(clearCart())
                   dispatch(() => {
                     try {
                       dispatch(clearCartRequest())
                     } catch (error) {
-                      // console.error(error)
                       return
                     }
-                    // - the above is to make sure the backend processing has succeeded before moving
-                    //   into changing the UI in the line below to ensure consistency
-                    dispatch(clearCartClientSide())
 
+                    dispatch(clearCartClientSide())
                   })
                   dispatch(closeModal())
                 }}
@@ -96,7 +83,6 @@ export default function Modal() {
                 type="button"
                 data-autofocus
                 onClick={() => {
-                  // setOpen(false)
                   dispatch(closeModal())
                 }}
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"

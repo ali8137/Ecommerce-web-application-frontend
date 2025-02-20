@@ -1,13 +1,7 @@
-// import React from 'react'
-
 import OrderCard from './OrderCard'
 import { women_dress } from '../../data/women_dress'
 
-
-
 // TODO: add the loader function. this loader function will fetch the orders, and will call the util function requireAuth() function to check if the user is logged in or not
-
-
 
 const orderStatus = [
   { label: 'on the way', value: 'on the way' },
@@ -17,12 +11,9 @@ const orderStatus = [
 ]
 
 const Order = () => {
-
-
   // TODO: implement filter feature
 
-
-  // TODO: access the data fetched by the loader function present in this react component 
+  // TODO: access the data fetched by the loader function present in this react component
 
   // TODO: access the orders (to be displayed in this react component) returned by the async action of the "orders" redux reducer
 

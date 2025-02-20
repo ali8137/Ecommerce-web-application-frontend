@@ -1,8 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-// import { women_dress } from '../../../../../data/women_dress'
 import axios from 'axios'
-
-// TODO: there will be definitely more changes for this file
 
 const url = 'http://localhost:8088/api'
 // TODO: add the above url in the development .env.development file
@@ -14,7 +11,6 @@ const authToken =
 
 const initialState = {
   cartItems: [],
-  // cartItems: women_dress.slice(0, 3),
   totalAmount: 0,
   subTotalPrice: 0,
 }
@@ -25,43 +21,17 @@ const initialState = {
 export const getCartItems = createAsyncThunk(
   'cart/getCartItems',
   async (/*params = {},*/ thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
       const response = await axios(url + '/cart/get-carts', {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
           Authorization: `Bearer ${authToken}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
 
-      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
-      // the interceptor) and then apply the get, post, put, delete methods
-
-      console.log('user carts: ', response.data)
       return response.data
     } catch (err) {
       console.error('error fetching cart(s)', err.toJSON?.() || err)
@@ -74,44 +44,18 @@ export const getCartItems = createAsyncThunk(
 export const clearCartRequest = createAsyncThunk(
   'cart/clearCartRequest',
   async (/*params = {},*/ thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
       // TODO: by database design, there is only one cart for a user
       const response = await axios.delete(url + '/cart/remove-all-carts', {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
           Authorization: `Bearer ${authToken}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
 
-      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add
-      // the interceptor) and then apply the get, post, put, delete methods
-
-      // console.log("user carts: ", response.data)
       return response.data
     } catch (err) {
       console.error('error clearing cart', err.toJSON?.() || err)
@@ -124,29 +68,7 @@ export const clearCartRequest = createAsyncThunk(
 export const addToCartRequest = createAsyncThunk(
   'cart/addToCartRequest',
   async (params = {}, thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       const { productData = {} } = params
 
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
@@ -156,17 +78,14 @@ export const addToCartRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
             Authorization: `Bearer ${authToken}`,
           },
         }
       )
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
 
-      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
-      // the interceptor) and then apply the get, post, put, delete methods
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
 
-      // console.log("user carts: ", response.data)
       return response.data
     } catch (err) {
       console.error('error adding cart item to the cart', err.toJSON?.() || err)
@@ -179,39 +98,15 @@ export const addToCartRequest = createAsyncThunk(
 export const removeFromCartRequest = createAsyncThunk(
   'cart/removeFromCartRequest',
   async (/*params = {},*/ thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
       const response = await axios.delete(url + '/cart-item/remove-cart-item', {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
           Authorization: `Bearer ${authToken}`,
         },
       })
 
-      // console.log("user carts: ", response.data)
       return response.data
     } catch (err) {
       console.error('error removing cart item', err.toJSON?.() || err)
@@ -224,29 +119,7 @@ export const removeFromCartRequest = createAsyncThunk(
 export const increaseItemQuantityRequest = createAsyncThunk(
   'cart/increaseItemQuantityRequest',
   async (params = {}, thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       const { cartItemId = null } = params
 
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
@@ -256,17 +129,14 @@ export const increaseItemQuantityRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
             Authorization: `Bearer ${authToken}`,
           },
         }
       )
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
 
-      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
-      // the interceptor) and then apply the get, post, put, delete methods
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
 
-      // console.log("user carts: ", response.data)
       return response.data
     } catch (err) {
       console.error('error increasing cart item', err.toJSON?.() || err)
@@ -279,29 +149,7 @@ export const increaseItemQuantityRequest = createAsyncThunk(
 export const decreaseItemQuantityRequest = createAsyncThunk(
   'cart/decreaseItemQuantityRequest',
   async (params = {}, thunkAPI) => {
-    // params = {} above is an object that will contain the values of the keys of the object passed to the function getProducts()
-    // or:
-    // - async ({ categoryId = null, colors = [], sizes = [], pricesData = [], pageNumber = 0,
-    //   pageSize = 10, sortBy = 'id', sortDirection = 'ASC', thunkAPI) => {
     try {
-      // const {
-      //   categoryId = null,
-      //   colors = [],
-      //   sizes = [],
-      //   pricesData = [],
-
-      //   pageNumber = 0,
-      //   pageSize = 10,
-      //   sortBy = 'id',
-      //   sortDirection = 'ASC'
-      //   // or
-      //   // sortDirection = 'DESC'
-      //   // - i could have choosen not to not add the above 3 parameters, because their
-      //   //   default values are specified in the backend
-      // } = params
-      // // - the above variables will store the values of the keys of params object. and if they
-      // //   don't exist, then they will be assigned the default values specified above
-
       const { cartItemId = null } = params
 
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
@@ -311,17 +159,14 @@ export const decreaseItemQuantityRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            // Authorization: `Bearer ${thunkAPI.getState().auth.token}`,
             Authorization: `Bearer ${authToken}`,
           },
         }
       )
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
 
-      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add 
-      // the interceptor) and then apply the get, post, put, delete methods
+      // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
 
-      // console.log("user carts: ", response.data)
       return response.data
     } catch (err) {
       console.error('error decreasing cart item', err.toJSON?.() || err)
@@ -333,106 +178,33 @@ export const decreaseItemQuantityRequest = createAsyncThunk(
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  // before integrating the backend ---------- beginning
-  // reducers: {
-  //   clearCart: (state) => {
-  //     state.cartItems = []
-
-  //     // the below two lines are not necassary because the total amount and total price are updated using "useEffect" everytime a change happens to the "cartItems" state variable
-  //     // state.totalAmount = 0
-  //     // state.subTotalPrice = 0
-  //   },
-
-  //   removeItem: (state, action) => {
-  //     const itemId = action.payload
-  //     state.cartItems = state.cartItems.filter((item) => item.id !== itemId)
-  //   },
-
-  //   increaseItem: (state, action) => {
-  //     const itemId = action.payload
-  //     // console.log(itemId)
-  //     const thisItem = state.cartItems.find((item) => item.id === itemId)
-  //     // "thisItem" is a reference that points to the item with the same id as the "itemId"
-  //     thisItem.amount++
-  //     // console.log(thisItem)
-  //   },
-
-  //   decreaseItem: (state, action) => {
-  //     const itemId = action.payload
-  //     const thisItem = state.cartItems.find((item) => item.id === itemId)
-  //     // "thisItem" is a reference that points to the item with the same id as the "itemId"
-
-  //     // if(thisItem.amount === 1) {
-  //     //   thisItem.amount = 0
-  //     //   return
-  //     // }
-  //     // we can't use the above logic because the correct user experience necessitates that when the user decreases the amount of an item to 0, the item should be removed from the cart
-  //     thisItem.amount--
-  //   },
-
-  //   // the below function will calculate the total amount and the total price of all the cartItems
-  //   calculateTotals: (state) => {
-  //     let amount = 0
-  //     let total = 0
-  //     state.cartItems.forEach((item) => {
-  //       amount += item.amount
-  //       total += item.amount * item.discountedPrice
-  //     })
-  //     state.totalAmount = amount
-  //     state.subTotalPrice = total
-  //   },
-  // },
-  // before integrating the backend ---------- end
-
   reducers: {
     clearCartClientSide: (state) => {
       state.cartItems = []
       state.totalAmount = 0
       state.subTotalPrice = 0
     },
-
-    // addToCartClientSide: (state, action) => {
-    //   // const itemId = action.payload
-    //   const {cartItemId} = action.payload
-    // },
-
     removeFromCartClientSide: (state, action) => {
-      const {cartItemId: itemId } = action.payload
+      const { cartItemId: itemId } = action.payload
       state.cartItems = state.cartItems.filter((item) => item.id !== itemId)
     },
-
     increaseItemQuantityClientSide: (state, action) => {
-      const {cartItemId: itemId } = action.payload
-      // console.log(itemId)
+      const { cartItemId: itemId } = action.payload
       const thisItem = state.cartItems.find((item) => item.id === itemId)
-      // "thisItem" is a reference that points to the item with the same id as the "itemId"
       thisItem.quantity++
-      // console.log(thisItem)
 
       state.totalAmount++
       state.subTotalPrice += thisItem.product.price
     },
-
     decreaseItemQuantityClientSide: (state, action) => {
-      // const itemId = action.payload
       const { cartItemId } = action.payload
       const thisItem = state.cartItems.find((item) => item.id === cartItemId)
-      // "thisItem" is a reference that points to the item with the same id as the "itemId"
-
-      // if(thisItem.amount === 1) {
-      //   thisItem.amount = 0
-      //   return
-      // }
-      // we can't use the above logic because the correct user experience necessitates that when the user decreases the amount of an item to 0, the item should be removed from the cart
       thisItem.quantity--
 
       state.totalAmount--
       state.subTotalPrice -= thisItem.product.price
     },
-    // TODO: to change the UI beside/after calling the backend server, instead of having the above
-    // reducers and executing their dispatch() calls inside components beside calling
-    // async thunk actions. we can just use async thunk and inside the extra-reducers of this 
-    // thunk we can access the parameters passed to the async thunk action through "action.meta.arg"
+    // TODO: to change the UI beside/after calling the backend server, instead of having the above reducers and executing their dispatch() calls inside components beside calling async thunk actions. we can just use async thunk and inside the extra-reducers of this thunk we can access the parameters passed to the async thunk action through "action.meta.arg"
   },
   extraReducers: (builder) => {
     builder
@@ -441,8 +213,6 @@ const cartSlice = createSlice({
         state.isLoading = true
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
         state.isLoading = false
         console.log('action.payload', action.payload)
         state.cartItems = action.payload[0].cartItems
@@ -450,13 +220,6 @@ const cartSlice = createSlice({
           (total, item) => total + item.quantity,
           0
         )
-        // - knowing that the above does not cause any security vulnerability
-        // - another approach is to change the database design in the backend so that
-        //   Cart entity class includes totalQuantity. and then change the logic
-        //   inside the service methods based on that
-        // - another approach is to create a response DTO in the backend that includes totalQuantity, where
-        //   the Cart entity/object instance retrieved from the database is mapped to this
-        //   response DTO, by adding the quantities of the individual cartItems
         state.subTotalPrice = action.payload[0].totalPrice
         console.log(
           'isLoading',
@@ -470,205 +233,63 @@ const cartSlice = createSlice({
         )
       })
       .addCase(getCartItems.rejected, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
         state.isLoading = false
         state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error getting cart items')
       })
       // add product to cart:
       .addCase(addToCartRequest.pending, (state) => {
         state.isLoading = true
       })
       .addCase(addToCartRequest.fulfilled, (state, action) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
         state.isLoading = false
         state.cartItems = action.payload[0].cartItems
         state.totalAmount++
-        // - knowing that the above does not cause any security vulnerability
-        // or:
-        // state.totalAmount = action.payload[0].cartItems.length
-        // - another approach is to change the database design in the backend so that
-        //   Cart entity class includes totalQuantity. and then change the logic
-        //   inside the service methods based on that
-        // - another approach is to create a response DTO in the backend that includes totalQuantity, where
-        //   the Cart entity/object instance retrieved from the database is mapped to this
-        //   response DTO, by adding the quantities of the individual cartItems
-        // state.subTotalPrice = action.payload[0].totalPrice
-        console.log(
-          'isLoading',
-          state.isLoading,
-          'cartItems',
-          state.cartItems,
-          'totalAmount',
-          state.totalAmount,
-          'subTotalPrice',
-          state.subTotalPrice
-        )
       })
-      .addCase(addToCartRequest.rejected, (/*state, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
-        // state.isLoading = false
-        // state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error adding cart item')
+      .addCase(addToCartRequest.rejected, (state /*, action*/) => {
+        state.isLoading = false
       })
       // increase product in cart:
       .addCase(increaseItemQuantityRequest.pending, (state) => {
         state.isLoading = true
       })
       .addCase(increaseItemQuantityRequest.fulfilled, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
         state.isLoading = false
-        // state.cartItems = action.payload[0].cartItems
-        // state.totalAmount++
-        // - knowing that the above does not cause any security vulnerability
-        // or:
-        // state.totalAmount = action.payload[0].cartItems.length
-        // - another approach is to change the database design in the backend so that
-        //   Cart entity class includes totalQuantity. and then change the logic
-        //   inside the service methods based on that
-        // - another approach is to create a response DTO in the backend that includes totalQuantity, where
-        //   the Cart entity/object instance retrieved from the database is mapped to this
-        //   response DTO, by adding the quantities of the individual cartItems
-        // state.subTotalPrice = action.payload[0].totalPrice
-        // console.log(
-        //   'isLoading',
-        //   state.isLoading,
-        //   'cartItems',
-        //   state.cartItems,
-        //   'totalAmount',
-        //   state.totalAmount,
-        //   'subTotalPrice',
-        //   state.subTotalPrice
-        // )
       })
       .addCase(increaseItemQuantityRequest.rejected, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
         state.isLoading = false
-        // state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error getting cart items')
       })
       // decrease product from cart:
       .addCase(decreaseItemQuantityRequest.pending, (state) => {
         state.isLoading = true
       })
       .addCase(decreaseItemQuantityRequest.fulfilled, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
         state.isLoading = false
-        // state.cartItems = action.payload[0].cartItems
-        // state.totalAmount--
-        // - knowing that the above does not cause any security vulnerability
-        // or:
-        // state.totalAmount = action.payload[0].cartItems.length
-        // - another approach is to change the database design in the backend so that
-        //   Cart entity class includes totalQuantity. and then change the logic
-        //   inside the service methods based on that
-        // - another approach is to create a response DTO in the backend that includes totalQuantity, where
-        //   the Cart entity/object instance retrieved from the database is mapped to this
-        //   response DTO, by adding the quantities of the individual cartItems
-        // state.subTotalPrice = action.payload[0].totalPrice
-        // console.log(
-        //   'isLoading',
-        //   state.isLoading,
-        //   'cartItems',
-        //   state.cartItems,
-        //   'totalAmount',
-        //   state.totalAmount,
-        //   'subTotalPrice',
-        //   state.subTotalPrice
-        // )
       })
       .addCase(decreaseItemQuantityRequest.rejected, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
         state.isLoading = false
-        // state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error getting cart items')
       })
       // remove product from cart:
       .addCase(removeFromCartRequest.pending, (state) => {
         state.isLoading = true
       })
       .addCase(removeFromCartRequest.fulfilled, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
         state.isLoading = false
-        // state.cartItems = action.payload[0].cartItems
-        // state.totalAmount = action.payload[0].cartItems.length
-        // - knowing that the above does not cause any security vulnerability
-        // - another approach is to change the database design in the backend so that
-        //   Cart entity class includes totalQuantity. and then change the logic
-        //   inside the service methods based on that
-        // - another approach is to create a response DTO in the backend that includes totalQuantity, where
-        //   the Cart entity/object instance retrieved from the database is mapped to this
-        //   response DTO, by adding the quantities of the individual cartItems
-        // state.subTotalPrice = action.payload[0].totalPrice
-        // console.log(
-        //   'isLoading',
-        //   state.isLoading,
-        //   'cartItems',
-        //   state.cartItems,
-        //   'totalAmount',
-        //   state.totalAmount,
-        //   'subTotalPrice',
-        //   state.subTotalPrice
-        // )
       })
       .addCase(removeFromCartRequest.rejected, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
         state.isLoading = false
-        // state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error getting cart items')
       })
       // clear user cart(s):
       .addCase(clearCartRequest.pending, (state) => {
         state.isLoading = true
       })
-      .addCase(clearCartRequest.fulfilled, (state, /*action*/) => {
-        // - action parameter here includes the payload, which is the data being
-        //   fetched/returned from the above API call getProducts
-
-        state.isLoading = false;
-        // console.log(
-        //   'isLoading',
-        //   state.isLoading,
-        //   'cartItems',
-        //   state.cartItems,
-        //   'totalAmount',
-        //   state.totalAmount,
-        //   'subTotalPrice',
-        //   state.subTotalPrice
-        // )
+      .addCase(clearCartRequest.fulfilled, (state /*action*/) => {
+        state.isLoading = false
       })
       .addCase(clearCartRequest.rejected, (state /*, action*/) => {
-        // - action parameter here includes the payload, which is the
-        //   error message in this case
         state.isLoading = false
-        // state.cartItems = []
-        // state.paginationData = {};
-        // console.error('error getting cart items')
       })
   },
 })
-
-// export const {
-//   clearCart,
-//   removeItem,
-//   increaseItem,
-//   decreaseItem,
-//   calculateTotals,
-// } = cartSlice.actions
 
 export const {
   clearCartClientSide,

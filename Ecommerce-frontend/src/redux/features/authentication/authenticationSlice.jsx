@@ -1,6 +1,3 @@
-
-
-
 // sign up
 // login/sign in
 // logout

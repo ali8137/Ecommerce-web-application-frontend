@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import CartContainer from '../customer/components/cart/CartContainer'
 
 const ShoppingCart = () => {

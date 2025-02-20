@@ -1,27 +1,11 @@
-// import React from 'react'
-
-// import { useEffect } from 'react'
 import CartProduct from '../cart/CartProduct'
 import CartOrderSummary from '../cart/CartOrderSummary'
-import { /*useDispatch,*/ useSelector } from 'react-redux'
-// import { calculateTotals } from '../cart/redux/features/cartSlice/cartSlice'
+import { useSelector } from 'react-redux'
 
 const OrderSummary = (prop) => {
-  const {
-    cartItems,
-    //  subTotalPrice,
-    totalAmount,
-  } = useSelector((store) => store.cart)
-
-  // const dispatch = useDispatch()
+  const { cartItems, totalAmount } = useSelector((store) => store.cart)
 
   // TODO: access the order items (to be displayed in this react component) returned by the async action of the "orders" redux reducer
-
-  // before integrating the "orders" redux reducer
-  // useEffect(() => {
-  //   dispatch(calculateTotals())
-  // }, [cartItems, dispatch])
-
 
   const { onNext } = prop
 
@@ -44,7 +28,7 @@ const OrderSummary = (prop) => {
         </div>
         {/* order summary */}
         <div className="lg:mx-5 px-5 pb-5 lg:w-2/5 lg:self-start border-2 rounded-xl shadow-xl">
-          <CartOrderSummary forOrderComponent={true} onNext={onNext}/>
+          <CartOrderSummary forOrderComponent={true} onNext={onNext} />
         </div>
       </div>
     </div>

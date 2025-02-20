@@ -1,5 +1,3 @@
-// import React from 'react'
-
 import DoneIcon from '@mui/icons-material/Done'
 
 const PaymentSuccessCallback = () => {
