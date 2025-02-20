@@ -1,10 +1,10 @@
-// import React from 'react'
-
-import Product from "../customer/components/product/Product"
+import Product from '../customer/components/product/Product'
 
 const Productslisting = () => {
   return (
-    <div><Product /></div>
+    <div>
+      <Product />
+    </div>
   )
 }
 

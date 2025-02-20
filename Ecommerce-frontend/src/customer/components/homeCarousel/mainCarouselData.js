@@ -1,5 +1,3 @@
-
-
 export const mainCarouselData = [
   {
     id: 1,

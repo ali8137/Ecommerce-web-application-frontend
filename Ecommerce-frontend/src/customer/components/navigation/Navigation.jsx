@@ -1,15 +1,6 @@
-// every component imported in this file must be used in it
-
-// the code in this file was copied from https://tailwindui.com/components/ecommerce/components/store-navigation
-
 'use client'
 
-import {
-  Fragment,
-  // useEffect,
-  // useRef,
-  useState,
-} from 'react'
+import { Fragment, useState } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -23,7 +14,6 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  // useClose,
 } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -34,97 +24,19 @@ import {
 import { navigation } from './navigationData'
 // TODO: replace the above navigation in this component with the names of categories from the backend/database
 import { useSelector } from 'react-redux'
-import {
-  NavLink,
-  // useLocation,
-  // useNavigate,
-  // useParams,
-  // useSearchParams,
-} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
 
-  // added the below to try changing css styles using useRef() and scrolling
-  // const navbar = useRef(null);
-  // or
-  // const [isScrolled, setIsScrolled] = useState(false);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > window.innerHeight * 1) {
-  //       setIsScrolled(true);
-  //     }
-  //     else {
-  //       setIsScrolled(false);
-  //     }
-  //   } ;
-
-  //   window.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
   const { totalAmount } = useSelector((store) => store.cart)
 
-  // removed "/women" or "/men" routes because adding them is bringing bad UX -------- beginning
-  // // the below are used to sync between the URL params "/women" or "/men" and the clicking of the <PopoverButton> (thus the open state of the <PopoverPanel>) ------------- beginning
-  // const navigate = useNavigate()
-  // // const [searchParams, setSearchParams] = useSearchParams()
-  // const { categoryName } = useParams()
-  // const buttonrefs = useRef([])
-  // const location = useLocation()
-
-  // // console.log(location)
-
-  // const isPathStopsAtDynamicParam = location.pathname === `/${categoryName}`
-
-  // useEffect(() => {
-  //   // console.log('render')
-
-  //   // console.log(buttonrefs.current)
-
-  //   // console.log(categoryName)
-
-  //   if (categoryName !== undefined && isPathStopsAtDynamicParam) {
-  //     // "undefined" and not "null" above
-  //     // we could have used "categoryName?" down below in the condition
-  //     navigation.categories.forEach((category) => {
-  //       if (category.name.toLowerCase() === categoryName.toLowerCase()) {
-  //         buttonrefs.current[category.index].click()
-
-  //         // console.log(buttonrefs.current[category.index])
-  //         // console.log(categoryName)
-  //         // console.log(category.name)
-  //       }
-  //       // console.log(category.name)
-  //     })
-  //   }
-  //   // the above logic will work, but due to <React.StrictMode> during development stage, thw above code will be executed twice and hence the display of the <popoverPanel> will not happen, the <PopoverButton> will be clicked twice
-
-  //   // if (categoryName === 'Women') {
-  //   //   buttonrefs.current.click()
-  //   // }
-  // }, [categoryName, buttonrefs, isPathStopsAtDynamicParam])
-  // // the below are used to sync between the URL params "/women" or "/men" and the clicking of the <PopoverButton> (thus the open state of the <PopoverPanel>) ------------- end
-  // removed "/women" or "/men" routes because adding them is bringing bad UX -------- end
-
-  // useEffect(() => {
-  //   console.log('render')
-  // })
-
-  // was trying to use the below to programmatically close the <PopoverPanel> down below
-  // const close = useClose()
-
-
   // TODO: access the "authentication" (register, login, logout and user profile ) redux reducer to send requests to the backend to register, login, logout and get the user profile
-  
+
   return (
     <div className="bg-white">
-      {/* this part is for mobile screens --------- beginning */}
+      {/* mobile screens */}
       {/* Mobile menu */}
       <Dialog open={open} onClose={setOpen} className="relative z-40 lg:hidden">
         <DialogBackdrop
@@ -275,8 +187,7 @@ export default function Navigation() {
         </div>
       </Dialog>
 
-      {/* this part is for mobile screens --------- end */}
-
+      {/* large screens */}
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
@@ -284,12 +195,7 @@ export default function Navigation() {
 
         <nav
           aria-label="Top"
-          className={
-            `mx-auto max-w-7xl px-4 sm:px-6 lg:px-8`
-            // ${isScrolled ? '' : ''}
-            // the above is just to play around with css and javascript
-          }
-          // ref={navbar}
+          className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8`}
         >
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center">
@@ -305,25 +211,9 @@ export default function Navigation() {
 
               {/* Logo */}
               <div className="ml-4 flex lg:ml-0">
-                {/* <a href="#">
-                  <span className="sr-only">Your Company</span>
-                  <img
-                    alt=""
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    className="h-8 w-auto"
-                  />
-                </a> */}
                 <NavLink to="/">
                   <span className="sr-only">Your Company</span>
-                  {/* <img
-                    alt=""
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    className="h-8 w-auto"
-                  /> */}
-                  <LocalMallIcon
-                    // fontSize="large"
-                    sx={{ color: 'blue', fontSize: 45 }}
-                  />
+                  <LocalMallIcon sx={{ color: 'blue', fontSize: 45 }} />
                 </NavLink>
               </div>
 
@@ -333,25 +223,7 @@ export default function Navigation() {
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
                       <div className="relative flex">
-                        <PopoverButton
-                          // below is some playing around
-                          // onClick={() => navigate(`/${category.name}`)}
-                          // onClick={() => setSearchParams(`/${category.name}`)}
-
-                          // removed "/women" or "/men" routes because adding them is bringing bad UX -------- beginning
-                          // ref={(element) =>
-                          //   (buttonrefs.current[category.index] = element)
-                          // }
-                          // array of references
-
-                          // onClick={() => {
-                          //   // console.log('clicked')
-                          //   navigate(`/${category.name.toLowerCase()}`)
-                          // }}
-                          // removed "/women" or "/men" routes because adding them is bringing bad UX -------- end
-
-                          className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-indigo-600 data-[open]:text-indigo-600"
-                        >
+                        <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-indigo-600 data-[open]:text-indigo-600">
                           {category.name}
                         </PopoverButton>
                       </div>
@@ -359,7 +231,7 @@ export default function Navigation() {
                       <PopoverPanel
                         transition
                         className="absolute z-10 h-[78vh] inset-x-0 top-full text-sm text-gray-500 transition data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-                        // i have added the css style "z-10" in order to resolve the problem of the panel not appearing. and i added also the css style "h-[78vh]"
+                        // added the css style "z-10" in order to resolve the problem of the panel not appearing. and added also the css style "h-[78vh]"
                       >
                         {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         {({ close }) => (
@@ -421,20 +293,12 @@ export default function Navigation() {
                                               key={item.name}
                                               className="flex"
                                             >
-                                              {/* <a
-                                            href={item.href}
-                                            className="hover:text-gray-800"
-                                          >
-                                            {item.name}
-                                          </a> */}
                                               <NavLink
                                                 to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}`}
                                                 // the above will concatenate the above path to the path of the parent route of this component
-                                                // to={item.href}
-                                                // href={item.href}
                                                 className="hover:text-gray-800"
                                                 onClick={close}
-                                                // the "close" prop is provided by headless UI. the above line woll triger the closing of the <PopoverPanel>
+                                                // the "close" prop is provided by headless UI. the above line will triger the closing of the <PopoverPanel>
                                               >
                                                 {item.name}
                                               </NavLink>
@@ -482,21 +346,6 @@ export default function Navigation() {
                   </a>
                 </div>
 
-                {/* <div className="hidden lg:ml-8 lg:flex">
-                  <a
-                    href="#"
-                    className="flex items-center text-gray-700 hover:text-gray-800"
-                  >
-                    <img
-                      alt=""
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      className="block h-auto w-5 flex-shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div> */}
-
                 {/* Search */}
                 <div className="flex lg:ml-6">
                   <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
@@ -510,21 +359,8 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  {/* <a
-                    href="#"
-                    className="group relative -m-2 flex items-center p-2"
-                  >
-                    <ShoppingBagIcon
-                      aria-hidden="true"
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                    />
-                    <span className="absolute z-10 top-[-2px] right-[-10px] ml-2 px-2 bg-gray-300 shadow-sm border rounded-full text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      {totalAmount}
-                    </span>
-                    <span className="sr-only">items in cart, view bag</span>
-                  </a> */}
                   <NavLink
-                    to='shopping-cart'
+                    to="shopping-cart"
                     className="group relative -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon
