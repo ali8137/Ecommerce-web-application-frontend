@@ -68,6 +68,27 @@ install heroicons/react by running the following command: `npm install @heroicon
 
 > **further information:** the above dependencies are installed to use the store-navigation offered by 'tailwindui'
 
+💡 **TODO:** 
+- [x] update the above "dependencies" section by specifying the versions of the above dependnecies, and by adding the rest of the dependencies
+
+---
+
+## application structure:
+
+
+### folder structure
+💡 **TODO:** 
+- [ ] add this section
+
+### exception handling
+💡 **TODO:** 
+- [ ] add this section
+
+### API calling:
+two approaches were used:
+- calling throught async thunk using redux toolkit
+- calling directly through API calls in a dedicated "api.jsx" file
+
 ---
 
 ## Usage
@@ -75,10 +96,16 @@ After setting up the project, you can start using it as follows:
 
 ### Running the Application
 
-To start the application, run the following command:
+- once the backend server is running at http://localhost:8088, you can access the app at http://localhost:5173
+
+- To start the application, run the following command:
 
 `npm start`
+
 
 ---
 
 ## Deployment
+
+💡 **TODO:** 
+- [ ] update this section
