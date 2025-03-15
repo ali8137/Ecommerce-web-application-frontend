@@ -99,6 +99,7 @@ export default function ProductDetails() {
   // TODO: implement sending the user rating into the backend by either dedicating a state variable to store this rating, or by using a form
 
   const { productId } = useParams()
+  // console.log("product", productId)
 
   const { product, isLoading: isProductLoading } = useSelector(
     (store) => store.products

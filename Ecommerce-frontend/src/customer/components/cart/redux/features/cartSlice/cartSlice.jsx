@@ -5,7 +5,7 @@ const url = 'http://localhost:8088/api'
 // TODO: add the above url in the development .env.development file
 
 const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzM5NTM3MzkyLCJleHAiOjE3NDA0MDEzOTJ9.IsXGRK049-yLacKA5r8d2HtlQvtVLdBPOooIZMg0tj8'
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
 // TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
@@ -14,6 +14,12 @@ const initialState = {
   totalAmount: 0,
   subTotalPrice: 0,
 }
+
+
+// TODO: the below approach of having to process the logic in between the backend and frontend is very bad, instead refine and alter the backend controller 
+// methods to handle all the logic and return the new cartItems array ready for the information to be taken out of it rather than processing the information of this array here to derive the new info
+
+
 
 // TODO: add the "get cart items(from the backend API)" async action
 // TODO: documentation: the below function will always return an array of one cart
@@ -97,15 +103,20 @@ export const addToCartRequest = createAsyncThunk(
 // remove cart item:
 export const removeFromCartRequest = createAsyncThunk(
   'cart/removeFromCartRequest',
-  async (/*params = {},*/ thunkAPI) => {
+  async (params = {}, thunkAPI) => {
     try {
+      const { cartItemId = null } = params
+
       // TODO: for better readability, the below is better to be written as `${}` rather than ""
-      const response = await axios.delete(url + '/cart-item/remove-cart-item', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
+      const response = await axios.delete(
+        url + '/cart-item/remove-cart-item/' + cartItemId,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      )
 
       return response.data
     } catch (err) {
@@ -186,6 +197,20 @@ const cartSlice = createSlice({
     },
     removeFromCartClientSide: (state, action) => {
       const { cartItemId: itemId } = action.payload
+
+      // find the cartItem to be removed:
+      const thisItem = state.cartItems.find((item) => item.id === itemId)
+
+      // calculate the new total amount:
+      const oldTotalAmount = state.totalAmount
+      state.totalAmount = oldTotalAmount - thisItem.quantity
+
+      // calculate the new subTotal price:
+      const oldSubTotalPrice = state.subTotalPrice
+      state.subTotalPrice =
+        oldSubTotalPrice - thisItem.quantity * thisItem.product.price
+
+      // have the new cartItems array:
       state.cartItems = state.cartItems.filter((item) => item.id !== itemId)
     },
     increaseItemQuantityClientSide: (state, action) => {
@@ -214,23 +239,23 @@ const cartSlice = createSlice({
       })
       .addCase(getCartItems.fulfilled, (state, action) => {
         state.isLoading = false
-        console.log('action.payload', action.payload)
+        // console.log('action.payload', action.payload)
         state.cartItems = action.payload[0].cartItems
         state.totalAmount = action.payload[0].cartItems.reduce(
           (total, item) => total + item.quantity,
           0
         )
         state.subTotalPrice = action.payload[0].totalPrice
-        console.log(
-          'isLoading',
-          state.isLoading,
-          'cartItems',
-          state.cartItems,
-          'totalAmount',
-          state.totalAmount,
-          'subTotalPrice',
-          state.subTotalPrice
-        )
+        // console.log(
+        //   'isLoading',
+        //   state.isLoading,
+        //   'cartItems',
+        //   state.cartItems,
+        //   'totalAmount',
+        //   state.totalAmount,
+        //   'subTotalPrice',
+        //   state.subTotalPrice
+        // )
       })
       .addCase(getCartItems.rejected, (state /*, action*/) => {
         state.isLoading = false
@@ -243,10 +268,12 @@ const cartSlice = createSlice({
       .addCase(addToCartRequest.fulfilled, (state, action) => {
         state.isLoading = false
         state.cartItems = action.payload[0].cartItems
+        state.subTotalPrice = action.payload[0].totalPrice
         state.totalAmount++
       })
       .addCase(addToCartRequest.rejected, (state /*, action*/) => {
         state.isLoading = false
+        state.cartItems = []
       })
       // increase product in cart:
       .addCase(increaseItemQuantityRequest.pending, (state) => {

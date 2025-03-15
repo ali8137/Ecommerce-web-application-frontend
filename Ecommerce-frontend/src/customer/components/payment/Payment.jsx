@@ -1,11 +1,26 @@
 import { Button } from '@mui/material'
 import { createPaymentWithStripe } from '../../../utils/api'
 import { loadStripe } from '@stripe/stripe-js'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getUserCurrentOrder } from '../../../redux/features/orders/ordersSlice'
 
 const Payment = () => {
+  const { currentOrder } = useSelector((store) => store.orders)
+
+  const dispatch = useDispatch()
+
+  // TODO: this might change as we progress in the project, where the fetching of the current order will be more targeted
+  useEffect(() => {
+    dispatch(getUserCurrentOrder())
+  }, [dispatch])
+
+  // TODO: you can choose to rather write the below methods in the PaymentSLice in the redux store, or in the api.jsx file
   const createCheckoutSession = async () => {
     try {
-      const response = await createPaymentWithStripe()
+      const response = await createPaymentWithStripe({
+        currentOrder: currentOrder,
+      })
       const { sessionId } = response
 
       return sessionId

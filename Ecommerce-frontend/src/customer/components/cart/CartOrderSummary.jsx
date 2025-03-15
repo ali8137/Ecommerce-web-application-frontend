@@ -1,7 +1,8 @@
 import { Button } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { placeOrder } from '../../../redux/features/orders/ordersSlice'
 
 const CartOrderSummary = (prop) => {
   const { subTotalPrice } = useSelector((store) => store.cart)
@@ -9,6 +10,8 @@ const CartOrderSummary = (prop) => {
   const navigate = useNavigate()
 
   const { onNext = () => {}, forOrderComponent } = prop
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -41,11 +44,12 @@ const CartOrderSummary = (prop) => {
               size="large"
               sx={{ width: '100%' }}
               onClick={() => {
+                dispatch(placeOrder())
                 onNext()
                 // TODO: we could have used context api here for passing the above function down
               }}
             >
-              Checkout
+              Place Order
             </Button>
           </div>
         ) : (

@@ -10,7 +10,7 @@ const url = 'http://localhost:8088/api/products'
 // TODO: it is better to add the above url in the development .env.development file
 
 const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzM5NTM3MzkyLCJleHAiOjE3NDA0MDEzOTJ9.IsXGRK049-yLacKA5r8d2HtlQvtVLdBPOooIZMg0tj8'
+  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
 // TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 

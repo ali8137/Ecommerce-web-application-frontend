@@ -30,8 +30,9 @@ const CartProduct = (prop) => {
           <span className="text-gray-500">{size}</span>
         </div>
         <div className="mt-5 space-x-2">
-          <span className="line-through text-gray-400">${price}</span>
-          <span className="font-bold">${/* {discountedPrice} */}</span>
+          <span className="line-through text-gray-400">{/* ${price} */}</span>
+          {/* <span className="font-bold">${discountedPrice}</span> */}
+          <span className="font-bold">${price}</span>
           <span className="text-green-500 font-semibold">
             {/* {discountPercent} */}% off
           </span>
