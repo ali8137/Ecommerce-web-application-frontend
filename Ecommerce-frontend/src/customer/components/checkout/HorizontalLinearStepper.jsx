@@ -15,6 +15,8 @@ import Payment from '../payment/Payment'
 const steps = ['Login', 'Delivery address', 'Order summary', 'Payment']
 
 export default function HorizontalLinearStepper() {
+
+  // remove/hide the next buttons for better UI/UX
   const [activeStep, setActiveStep] = React.useState(0)
   const [skipped, setSkipped] = React.useState(new Set())
 
@@ -129,7 +131,7 @@ export default function HorizontalLinearStepper() {
               </div>
             </div>
           ) : activeStep === 2 ? (
-            <OrderSummary onNext={handleNext} />
+            <OrderSummary /*forOrderComponent={true}*/ onNext={handleNext} />
           ) : (
             <Payment />
           )}
