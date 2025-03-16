@@ -7,9 +7,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 const url = 'http://localhost:8088/api'
 // TODO: it is better to add the above url in the development .env.development file
 
-const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
-// TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
+// const authToken =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
+// const authToken = localStorage.getItem("token")
+// the above variable will be calculated onlt once when this file is loaded, and it won't be updated, thus use the below instead
+const authToken = () => localStorage.getItem("token") || null;
+// finished-TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
 const initialState = {
@@ -29,7 +32,8 @@ export const getOrders = createAsyncThunk(
       const response = await axios(url + '/orders/get-orders', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -53,7 +57,8 @@ export const getUserCurrentOrder = createAsyncThunk(
       const response = await axios(url + '/orders/user-current-order', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -81,7 +86,8 @@ export const placeOrder = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
@@ -118,7 +124,7 @@ const ordersSlice = createSlice({
       .addCase(getUserCurrentOrder.fulfilled, (state, action) => {
         state.isLoading = false
         state.currentOrder = action.payload
-        console.log("currentOrder", state.currentOrder)
+        // console.log("currentOrder", state.currentOrder)
       })
       .addCase(getUserCurrentOrder.rejected, (state /*, action*/) => {
         state.isLoading = false

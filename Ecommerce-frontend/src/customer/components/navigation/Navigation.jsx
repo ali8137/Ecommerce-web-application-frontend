@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import {
   Dialog,
   DialogBackdrop,
@@ -23,9 +23,14 @@ import {
 } from '@heroicons/react/24/outline'
 import { navigation } from './navigationData'
 // TODO: replace the above navigation in this component with the names of categories from the backend/database
-import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  // Navigate,
+  NavLink,
+} from 'react-router-dom'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
+import { logout } from '../../../redux/features/authentication/authSlice'
+import { getCartItems } from '../cart/redux/features/cartSlice/cartSlice'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -33,6 +38,43 @@ export default function Navigation() {
   const { totalAmount } = useSelector((store) => store.cart)
 
   // TODO: access the "authentication" (register, login, logout and user profile ) redux reducer to send requests to the backend to register, login, logout and get the user profile
+
+  const { token } = useSelector((store) => store.auth)
+  // const token = localStorage.getItem('token');
+
+  // console.log('navigation token: ', token)
+  // console.log('navigation total amount: ', totalAmount)
+
+  const dispatch = useDispatch()
+
+  // const handleLogicClick = (event) => {
+  //   if (!isAuthenticated) {
+  //     event.preventDefault() // Prevents navigation
+  //     Navigate('/login') // Redirect user to login page instead
+  //   } else {
+  //     console.log('User is authenticated, navigating...')
+  //   }
+  // }
+
+  const handleLogout = (/*event*/) => {
+    dispatch(logout())
+  }
+
+  // TODO: can make the cart icon section (a group of html <div> components) in the <Navigation> component to be a dedicated component 
+  // itself and hence fetch the cart items whenever this component specifically (isnteadof targetting the whole <Navigation> compponent rerendering) rerenders
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      await dispatch(getCartItems())
+
+      // console.log('navigation get cat items')
+    }
+
+    fetchCartItems()
+
+    // console.log('navigaiton useEffect')
+  }, [dispatch, token])
+  // - useEffect() function does not necessarily run when the component it 
+  //   is in reredners, but rather when the variables it depends on change
 
   return (
     <div className="bg-white">
@@ -151,23 +193,69 @@ export default function Navigation() {
               ))}
             </div>
 
+            {/* TODO: add a popover panel that will pop to allow the user to either check his profile or Logout */}
             <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-              <div className="flow-root">
-                <a
-                  href="#"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign in
-                </a>
-              </div>
-              <div className="flow-root">
-                <a
-                  href="#"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Create account
-                </a>
-              </div>
+              {token ? (
+                <div>
+                  <div className="flow-root">
+                    <NavLink
+                      to="/profile"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Profile
+                    </NavLink>
+                  </div>
+                  <div className="flow-root">
+                    {/* <button
+                      onClick={handleLogout}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Logout
+                    </button> */}
+                    <NavLink
+                      to="/logout"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavLink>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="flow-root">
+                    {/* <a
+                      href="#"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Sign in
+                    </a> */}
+                    <NavLink
+                      to="/login"
+                      // onClick={handleLoginClick}
+                      // onClick={() => handleLoginClick()}
+                      // the onClick event handle takes place before the navigation to the route in the above "to" prop of this <NavLink />
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Sign in
+                    </NavLink>
+                  </div>
+                  <div className="flow-root">
+                    {/* <a
+                      href="#"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Create account
+                    </a> */}
+                    <NavLink
+                      to="/register"
+                      className="-m-2 block p-2 font-medium text-gray-900"
+                    >
+                      Create account
+                    </NavLink>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="border-t border-gray-200 px-4 py-6">
@@ -329,22 +417,58 @@ export default function Navigation() {
                 </div>
               </PopoverGroup>
 
+              {/* TODO: add a popover panel that will pop to allow the user to either check his profile or Logout */}
               <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
+                {token ? (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <NavLink
+                      to="/profile"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Profile
+                    </NavLink>
+                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                    {/* <button
+                      onClick={handleLogout}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Logout
+                    </button> */}
+                    <NavLink
+                      to="/logout"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    {/* <a
                     href="#"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Sign in
-                  </a>
-                  <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <a
+                  > */}
+                    <NavLink
+                      to="/login"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Sign in
+                    </NavLink>
+                    {/* </a> */}
+                    <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
+                    {/* <a
                     href="#"
                     className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </a>
-                </div>
+                  > */}
+                    <NavLink
+                      to="/sign-up"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Create account
+                    </NavLink>
+                    {/* </a> */}
+                  </div>
+                )}
 
                 {/* Search */}
                 <div className="flex lg:ml-6">

@@ -35,15 +35,15 @@ const Payment = () => {
     const sessionId = await createCheckoutSession()
 
     if (sessionId) {
-      console.log('sessionId: ', sessionId)
-      console.log('stripe: ', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+      // console.log('sessionId: ', sessionId)
+      // console.log('stripe: ', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
       const stripe = await loadStripe(
         import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY
       )
 
       const { error } = await stripe.redirectToCheckout({ sessionId })
 
-      console.log('error: ', error)
+      // console.log('error: ', error)
 
       if (error) {
         console.error(error.message)
