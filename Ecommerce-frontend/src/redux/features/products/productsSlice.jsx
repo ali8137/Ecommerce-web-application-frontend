@@ -9,9 +9,12 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 const url = 'http://localhost:8088/api/products'
 // TODO: it is better to add the above url in the development .env.development file
 
-const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
-// TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
+// const authToken =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
+// const authToken = localStorage.getItem("token")
+// the above variable will be calculated onlt once when this file is loaded, and it won't be updated, thus use the below instead
+const authToken = () => localStorage.getItem('token') || null
+// finished-TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
 const initialState = {
@@ -59,13 +62,16 @@ export const getProducts = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
 
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
       // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
+
+      // console.log('product slice auth token', authToken())
 
       return response.data
     } catch (err) {
@@ -86,7 +92,8 @@ export const getProductById = createAsyncThunk(
       const response = await axios(url + '/' + productId, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       })
 
@@ -112,7 +119,6 @@ const productsSlice = createSlice({
       .addCase(getProducts.fulfilled, (state, action) => {
         state.isLoading = false
         state.products = action.payload.content
-        ;('')
         state.paginationData = action.payload.page
       })
       .addCase(getProducts.rejected, (state /*, action*/) => {

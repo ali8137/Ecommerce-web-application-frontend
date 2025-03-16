@@ -27,12 +27,16 @@ import { store } from './redux/store.jsx'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getCartItems } from './customer/components/cart/redux/features/cartSlice/cartSlice.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import { isUserAuthenticated } from './redux/features/authentication/authSlice.jsx'
+import Logout from './pages/Logout.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    {/* TODO: add the loaders  */}
-    {/* TODO: add protection for the suitable endpoints, for better UX */}
+      {/* TODO: add the loaders  */}
+      {/* TODO: add protection for the suitable endpoints, for better UX */}
 
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
@@ -49,21 +53,28 @@ const router = createBrowserRouter(
           having common path URL and i used <Outlet> for alternative swapping 
           between components of the child routes */}
           <Route index element={<Productslisting />} />
-          <Route path=":productId" element={<ProductOverview />} action={addProductToCartAction(store)} />
+          <Route
+            path=":productId"
+            element={<ProductOverview />}
+            action={addProductToCartAction(store)}
+          />
           {/* the above "store" is the redux store */}
           {/* the above is how we can pass arguments/parameters to an action function */}
         </Route>
         <Route path="shopping-cart" element={<CartContainer />} />
         <Route path="checkout-process" element={<HorizontalLinearStepper />} />
-        <Route path="payment" element={<Payment />} >
+        <Route path="payment" element={<Payment />}>
           <Route index element={<Payment />} />
-          <Route path='success' element={<PaymentSuccessCallback />} />
-          <Route path='cancel' element={<PaymentCancelCallback />} />
+          <Route path="success" element={<PaymentSuccessCallback />} />
+          <Route path="cancel" element={<PaymentCancelCallback />} />
         </Route>
         <Route path="order" element={<Order />} />
         <Route path="order-details" element={<OrderDetails />} />
         {/* TODO: add a route for the profile of the user. and add the definition of its react components (a react component mainly <UserProfile>). and access the user info from the backend through the "authentication" redux reducer (done in react component <Navigation>) */}
         {/* TODO: add a route for the admin dashboard. and add the definition of its react components and its reducx toolkits */}
+        <Route path="login" element={<Login />} />
+        <Route path="sign-up" element={<Register />} />
+        <Route path="logout" element={<Logout />} />
       </Route>
 
       {/* the below addition is when i wanted to test the react-router <Form /> */}
@@ -82,9 +93,18 @@ const router = createBrowserRouter(
 function App() {
 
   const dispatch = useDispatch()
-
+  
   useEffect(() => {
-    dispatch(getCartItems())
+    // the below functons are called whenever the website is refreshing
+    
+
+    // finished-TODO: it would be better to make the cart items to be fetched when the <Navigation> component rerenderes rather than when the website refreshes. or you can make the cart icon in the <Navigation> component to be a dedicated component and hence fetch the cart items whenever this component rerenders
+    // fetch the cart items:
+    // dispatch(getCartItems());
+    // we can remove this now
+
+    // check if the user is authenticated:
+    dispatch(isUserAuthenticated());
   }, [dispatch])
 
   return (

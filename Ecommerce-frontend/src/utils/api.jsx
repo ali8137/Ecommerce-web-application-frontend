@@ -2,15 +2,22 @@ import axios from 'axios'
 
 const url = 'http://localhost:8088/api'
 // const frontendUrl = "http://localhost:5173";
-const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
-// TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
+
+// const authToken =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
+// const authToken = localStorage.getItem("token")
+// the above variable will be calculated onlt once when this file is loaded, and it won't be updated, thus use the below instead
+const authToken = () => localStorage.getItem('token') || null
+// finished-TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
 // get products based on the category:
 export async function getProductsByCategory(categoryId) {
   //  TODO: the values of the categoryId are based on the values of the categories in the database
   try {
+
+    // console.log('product slice auth token', authToken())
+    
     const queryParams = new URLSearchParams()
     queryParams.append('categoryId', categoryId)
 
@@ -20,7 +27,8 @@ export async function getProductsByCategory(categoryId) {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       }
     )
@@ -41,7 +49,8 @@ export async function getCategories() {
     const response = await axios(url + '/categories', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
+        // Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`,
       },
     })
     // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -61,7 +70,8 @@ export async function getProductAttributes() {
     const response = await axios(url + '/products/product-attributes', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
+        // Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`,
       },
     })
     // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -159,7 +169,7 @@ export async function createPaymentWithStripe(params = {}) {
     // TODO: the below code might need more fixing after I fix the request DTO of the corresponding part in the backend
     const { currentOrder = null } = params
 
-    console.log("current order", currentOrder)
+    // console.log("current order", currentOrder)
 
     const lineItems = {
       cartItems: currentOrder?.orderItems?.map((orderItem) => ({
@@ -184,7 +194,8 @@ export async function createPaymentWithStripe(params = {}) {
       {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       }
     )

@@ -4,9 +4,12 @@ import axios from 'axios'
 const url = 'http://localhost:8088/api'
 // TODO: add the above url in the development .env.development file
 
-const authToken =
-  'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
-// TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
+// const authToken =
+//   'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqYWRAZ21haWwuY29tIiwiaWF0IjoxNzQxOTQ4MDMxLCJleHAiOjE3NDI4MTIwMzF9.NqOKy5-v-2IrO1PCvorSkXPLmEKKvsHRGiUCm9p0QtQ'
+// const authToken = localStorage.getItem("token")
+// the above variable will be calculated onlt once when this file is loaded, and it won't be updated, thus use the below instead
+const authToken = () => localStorage.getItem('token') || null
+// finished-TODO: change the way to get the auth token (using localStorage, redux, httpOnly cookies, sessionStorage, etc...)
 // TODO: add an global interceptor in the utility class that will add/attach the auth token to the request headers
 
 const initialState = {
@@ -32,7 +35,8 @@ export const getCartItems = createAsyncThunk(
       const response = await axios(url + '/cart/get-carts', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -56,7 +60,8 @@ export const clearCartRequest = createAsyncThunk(
       const response = await axios.delete(url + '/cart/remove-all-carts', {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
+          // Authorization: `Bearer ${authToken}`,
+          Authorization: `Bearer ${authToken()}`,
         },
       })
       // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
@@ -84,7 +89,8 @@ export const addToCartRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
@@ -113,7 +119,8 @@ export const removeFromCartRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
@@ -140,7 +147,8 @@ export const increaseItemQuantityRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
@@ -170,7 +178,8 @@ export const decreaseItemQuantityRequest = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
+            // Authorization: `Bearer ${authToken}`,
+            Authorization: `Bearer ${authToken()}`,
           },
         }
       )
@@ -260,6 +269,8 @@ const cartSlice = createSlice({
       .addCase(getCartItems.rejected, (state /*, action*/) => {
         state.isLoading = false
         state.cartItems = []
+        state.totalAmount = 0
+        state.subTotalPrice = 0
       })
       // add product to cart:
       .addCase(addToCartRequest.pending, (state) => {
