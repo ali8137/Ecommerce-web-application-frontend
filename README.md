@@ -25,7 +25,7 @@ This is a full-stack e-commerce application built using Spring Boot for the back
 
 ---
 
-⚠️ Disclaimer to Recruiters
+### ⚠️ Disclaimer to Recruiters
 When exploring the project, please note that only the following categories contain products:
 
 Men's Category: Tops of Clothing section
