@@ -229,6 +229,7 @@ export default function Authentication(prop) {
 
           {isLoginComponent === true ? (
             <p className="mt-10 text-center text-sm/6 text-gray-500">
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
               Don't have an account?{' '}
               {/* <a
                 href="#"

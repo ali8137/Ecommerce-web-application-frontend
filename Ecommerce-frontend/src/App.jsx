@@ -26,7 +26,7 @@ import PaymentCancelCallback from './customer/components/payment/PaymentCancelCa
 import { store } from './redux/store.jsx'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { getCartItems } from './customer/components/cart/redux/features/cartSlice/cartSlice.jsx'
+// import { getCartItems } from './customer/components/cart/redux/features/cartSlice/cartSlice.jsx'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
 import { isUserAuthenticated } from './redux/features/authentication/authSlice.jsx'

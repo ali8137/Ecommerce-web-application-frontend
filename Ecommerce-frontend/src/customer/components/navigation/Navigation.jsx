@@ -79,10 +79,9 @@ export default function Navigation() {
   // - useEffect() function does not necessarily run when the component it
   //   is in reredners, but rather when the variables it depends on change
 
-
   // TODO: there must be a better way to do this by having the catrgories hierarchy directly mapped in the backend to have a perfect flawless performance:
   // map the categories hierarchy fetched from the backend/database to the navigation data structure:
-  const mapCategoryHierarchyToNavigation = (categoriesHierarchy) => 
+  const mapCategoryHierarchyToNavigation = (categoriesHierarchy) =>
     categoriesHierarchy.map((category) => ({
       id: category.categoryDTO.path.toLowerCase(),
       index: navigation.categories.find(
@@ -132,7 +131,7 @@ export default function Navigation() {
     // })
   }, [])
 
-  console.log("navigation categories hierarchy: ", categoriesHierarchy)
+  // console.log("navigation categories hierarchy: ", categoriesHierarchy)
 
   return (
     <div className="bg-white">
@@ -223,13 +222,48 @@ export default function Navigation() {
                           className="mt-6 flex flex-col space-y-6"
                         >
                           {section.items.map((item) => (
-                            <li key={item.name} className="flow-root">
-                              <a
-                                href={item.href}
-                                className="-m-2 block p-2 text-gray-500"
+                            // <li key={item.name} className="flow-root">
+                            //   <a
+                            //     href={item.href}
+                            //     className="-m-2 block p-2 text-gray-500"
+                            //   >
+                            //     {item.name}
+                            //   </a>
+                            // </li>
+                            <li key={item.name} className="flex">
+                              <NavLink
+                                // TODO: might think of having a better navigation below, by either navigating to the route or by adding the search param
+                                to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}?categoryId=${
+                                  item.id
+                                }`}
+                                // the above will concatenate the above path to the path of the parent route of this component
+                                // className="hover:text-gray-800"
+                                className={`hover:text-gray-800 ${
+                                  category.id === 'women' &&
+                                  section.id === 'clothing' &&
+                                  item.name === 'Dresses'
+                                    ? ''
+                                    : category.id === 'men' &&
+                                      section.id === 'clothing' &&
+                                      item.name === 'Tops'
+                                    ? ''
+                                    : 'cursor-not-allowed text-gray-400'
+                                }`}
+                                // onClick={close}
+                                onClick={
+                                  (category.id === 'women' &&
+                                    section.id === 'clothing' &&
+                                    item.name === 'Dresses') ||
+                                  (category.id === 'men' &&
+                                    section.id === 'clothing' &&
+                                    item.name === 'Tops')
+                                    ? close
+                                    : (e) => e.preventDefault()
+                                }
+                                // the "close" prop is provided by headless UI. the above line will triger the closing of the <PopoverPanel>
                               >
                                 {item.name}
-                              </a>
+                              </NavLink>
                             </li>
                           ))}
                         </ul>
@@ -371,7 +405,7 @@ export default function Navigation() {
                   {/* {navigation.categories.map((category) => ( */}
                   {categoriesHierarchy.map((category) => (
                     <Popover key={category.name} className="flex">
-                    {/* <Popover key={category?.categoryDTO?.path} className="flex"> */}
+                      {/* <Popover key={category?.categoryDTO?.path} className="flex"> */}
                       <div className="relative flex">
                         <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-indigo-600 data-[open]:text-indigo-600">
                           {/* {category?.categoryDTO?.path} */}
@@ -445,10 +479,35 @@ export default function Navigation() {
                                               className="flex"
                                             >
                                               <NavLink
-                                                to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}?categoryId=${item.id}`}
+                                                // TODO: might think of having a better navigation below, by either navigating to the route or by adding the search param
+                                                to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}?categoryId=${
+                                                  item.id
+                                                }`}
                                                 // the above will concatenate the above path to the path of the parent route of this component
-                                                className="hover:text-gray-800"
-                                                onClick={close}
+                                                // className="hover:text-gray-800"
+                                                className={`hover:text-gray-800 ${
+                                                  category.id === 'women' &&
+                                                  section.id === 'clothing' &&
+                                                  item.name === 'Dresses'
+                                                    ? ''
+                                                    : category.id === 'men' &&
+                                                      section.id ===
+                                                        'clothing' &&
+                                                      item.name === 'Tops'
+                                                    ? ''
+                                                    : 'cursor-not-allowed text-gray-400'
+                                                }`}
+                                                // onClick={close}
+                                                onClick={
+                                                  (category.id === 'women' &&
+                                                    section.id === 'clothing' &&
+                                                    item.name === 'Dresses') ||
+                                                  (category.id === 'men' &&
+                                                    section.id === 'clothing' &&
+                                                    item.name === 'Tops')
+                                                    ? close
+                                                    : (e) => e.preventDefault()
+                                                }
                                                 // the "close" prop is provided by headless UI. the above line will triger the closing of the <PopoverPanel>
                                               >
                                                 {item.name}
