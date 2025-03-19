@@ -51,6 +51,7 @@ export const login = createAsyncThunk(
   }
 )
 
+// TODO: when a user registers, create a cart for him
 // register:
 export const register = createAsyncThunk(
   'auth/register',
@@ -117,7 +118,9 @@ export const isUserAuthenticated = createAsyncThunk(
       // finished-TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
       //   related to the above note: jwt is not added here
 
-      return response.data
+      // console.log('isUserAuthenticated response.data', response.data)
+
+      return !response.data
     } catch (err) {
       console.error('error fetching products', err.toJSON?.() || err)
       return thunkAPI.rejectWithValue({ error: err.message })
@@ -156,7 +159,7 @@ const authSlice = createSlice({
       // isTokenExpired:
       .addCase(isUserAuthenticated.pending, (/*state*/) => {})
       .addCase(isUserAuthenticated.fulfilled, (state, action) => {
-        if (action.payload === true) {
+        if (action.payload === false) {
           state.token = null
           state.isAuthenticated = false
           localStorage.removeItem('token') // remove token

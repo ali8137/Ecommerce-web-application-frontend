@@ -25,8 +25,11 @@ import ProductCard from './ProductCard'
 import { filters } from './filterData'
 
 import { useSearchParams } from 'react-router-dom'
-import { getCategories, getProductAttributes } from '../../../utils/api'
-import Button from '@mui/material/Button'
+import {
+  // getCategories,
+  getProductAttributes,
+} from '../../../utils/api'
+// import Button from '@mui/material/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../../../redux/features/products/productsSlice'
 import { Pagination } from '@mui/material'
@@ -39,9 +42,9 @@ export default function Product() {
   // for the mobile dialog
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
 
-  const [subCategories, setSubCategories] = useState([])
-  const [isCategoriesLoading, setIsCategoriesLoading] = useState(false)
-  const [error, setError] = useState(null)
+  // const [subCategories, setSubCategories] = useState([])
+  // const [isCategoriesLoading, setIsCategoriesLoading] = useState(false)
+  // const [error, setError] = useState(null)
 
   const {
     products,
@@ -106,33 +109,33 @@ export default function Product() {
 
   // TODO: add a filter icon on the top left side of the filters section of this component
 
-  // TODO: the below must be better done using router loader function instead
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setIsCategoriesLoading(true)
-      try {
-        const response = await getCategories()
-        setSubCategories(response)
-      } catch (err) {
-        console.error('error fetching categories: ', err)
-        setError(err)
-      } finally {
-        setIsCategoriesLoading(false)
-      }
-    }
+  // // TODO: the below must be better done using router loader function instead
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     setIsCategoriesLoading(true)
+  //     try {
+  //       const response = await getCategories()
+  //       setSubCategories(response)
+  //     } catch (err) {
+  //       console.error('error fetching categories: ', err)
+  //       setError(err)
+  //     } finally {
+  //       setIsCategoriesLoading(false)
+  //     }
+  //   }
 
-    fetchCategories()
-  }, [])
+  //   fetchCategories()
+  // }, [])
 
-  const handleCategoryClick = (categoryId) => {
-    setSearchParams((/*prevParams*/) => {
-      const newSearchParams = new URLSearchParams()
+  // const handleCategoryClick = (categoryId) => {
+  //   setSearchParams((/*prevParams*/) => {
+  //     const newSearchParams = new URLSearchParams()
 
-      newSearchParams.set('categoryId', categoryId)
+  //     newSearchParams.set('categoryId', categoryId)
 
-      return newSearchParams
-    })
-  }
+  //     return newSearchParams
+  //   })
+  // }
 
   // TODO: the below must be better done using router loader function instead. to do that, for the below state variable pageNbr, we better use searchParams and not state variable(useState)
   useEffect(() => {
@@ -143,7 +146,7 @@ export default function Product() {
         sizes: searchParams.getAll('Size'),
         pricesData: searchParams.getAll('Price'),
         pageNumber: pageNbr - 1,
-        // TODO: developer-constraint: - pageNumber values are 0, 1, 2, 3, ... and not 1, 2, 3, 4, ... and that's why
+        // TODO: developer-constraint: - pageNumber values are 0, 1, 2, 3, ... and not 1, 2, 3, 4, ... and that's why we subtract 1 from the pageNbr
         sortBy: searchParams.get('sortBy') || 'id',
       })
     )
@@ -187,15 +190,17 @@ export default function Product() {
     })
   }
 
-  useEffect(() => {
-    setSearchParams((/* prevParams */) => {
-      const initialSearchParams = new URLSearchParams()
+  // useEffect(() => {
+  //   setSearchParams((/* prevParams */) => {
+  //     const initialSearchParams = new URLSearchParams()
 
-      initialSearchParams.set('categoryId', 6)
+  //     initialSearchParams.set('categoryId', 10)
 
-      return initialSearchParams
-    })
-  }, [])
+  //     return initialSearchParams
+  //   })
+  // }, [])
+  // // don't add params in the useEffect above, it is meant to be executed only once at the beginning only
+  // // the above useEffect is only used because only products of few categories are there in the database
 
   return (
     <div className="bg-white">
@@ -231,7 +236,7 @@ export default function Product() {
 
               {/* Filters */}
               <form className="mt-4 border-t border-gray-200">
-                <h3 className="sr-only">Categories</h3>
+                {/* <h3 className="sr-only">Categories</h3>
                 <ul role="list" className="px-2 py-3 font-medium text-gray-900">
                   {subCategories?.map((category) => (
                     <li key={category.id}>
@@ -248,7 +253,7 @@ export default function Product() {
                       </Button>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
 
                 {filters.map((section) => (
                   <Disclosure
@@ -326,24 +331,27 @@ export default function Product() {
                   className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                 >
                   <div className="py-1">
-                    {productAttributes.map((option) => (
-                      <MenuItem
-                        key={option}
-                        onClick={() => handleSortingOptionClick(option)}
-                      >
-                        <a
-                          className={classNames(
-                            option
-                              ? 'font-medium text-gray-900'
-                              : 'text-gray-500',
-                            // TODO: the above styling might need some modification to have better UI/UX
-                            'block px-4 py-2 text-sm data-[focus]:bg-gray-100'
-                          )}
+                    {productAttributes
+                      // TODO: I believe doing the filtering in the backend in first place would have been better
+                      .filter((option) => option !== 'category_id')
+                      .map((option) => (
+                        <MenuItem
+                          key={option}
+                          onClick={() => handleSortingOptionClick(option)}
                         >
-                          {option}
-                        </a>
-                      </MenuItem>
-                    ))}
+                          <a
+                            className={classNames(
+                              option
+                                ? 'font-medium text-gray-900'
+                                : 'text-gray-500',
+                              // TODO: the above styling might need some modification to have better UI/UX
+                              'block px-4 py-2 text-sm data-[focus]:bg-gray-100'
+                            )}
+                          >
+                            {option}
+                          </a>
+                        </MenuItem>
+                      ))}
                   </div>
                 </MenuItems>
               </Menu>
@@ -377,7 +385,7 @@ export default function Product() {
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
               {/* Filters */}
               <form className="hidden lg:block">
-                <h3 className="sr-only">Categories</h3>
+                {/* <h3 className="sr-only">Categories</h3>
                 {isCategoriesLoading && <div>Loading...</div>}
                 {error && <div>{error}</div>}
                 {!isCategoriesLoading && !error && (
@@ -401,7 +409,7 @@ export default function Product() {
                       </li>
                     ))}
                   </ul>
-                )}
+                )} */}
 
                 {filters.map((section) => (
                   <Disclosure
