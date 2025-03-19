@@ -183,7 +183,7 @@ export async function createPaymentWithStripe(params = {}) {
       successUrl: 'https://05db-85-112-89-111.ngrok-free.app',
       // cancelUrl: frontendUrl + '/payment/cancel',
       cancelUrl:
-        'https://05db-85-112-89-111.ngrok-free.app/women/clothing/tops?categoryId=6',
+        'https://05db-85-112-89-111.ngrok-free.app/women/clothing/tops?categoryId=10',
     }
 
     // TODO: for better readability, the below is better to be written as `${}` rather than ""
@@ -205,6 +205,28 @@ export async function createPaymentWithStripe(params = {}) {
     return response.data
   } catch (error) {
     console.error('error creating payment with stripe: ', error)
+    throw error
+  }
+}
+
+
+// get categories as a hierarchy:
+export async function getCategoriesHierarchy() {
+  try {
+    // TODO: for better readability, the below is better to be written as `${}` rather than ""
+    const response = await axios(url + '/categories/hierarchy', {
+      headers: {
+        'Content-Type': 'application/json',
+        // Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${authToken()}`,
+      },
+    })
+    // TODO: replace adding the jwt token here by adding/attaching it through a global interceptor
+    // TODO: replace the above by using axios instance (that is axios.create()) (and if wanted, add the interceptor) and then apply the get, post, put, delete methods
+
+    return response.data
+  } catch (error) {
+    console.error('error fetching product attributes: ', error)
     throw error
   }
 }

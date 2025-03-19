@@ -5,16 +5,16 @@ const HomeSection = () => {
 
   return (
     <section>
-      <MemorizedHomeSectionCarousel categoryId={7} />
+      <MemorizedHomeSectionCarousel categoryId={29} />
       {/* TODO: developer-constraint: the values of the categoryId are based on the values of the categories in the database  */}
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
-      <MemorizedHomeSectionCarousel categoryId={6} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
+      <MemorizedHomeSectionCarousel categoryId={10} />
     </section>
   )
 }

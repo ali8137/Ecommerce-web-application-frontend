@@ -31,6 +31,7 @@ import {
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 import { logout } from '../../../redux/features/authentication/authSlice'
 import { getCartItems } from '../cart/redux/features/cartSlice/cartSlice'
+import { getCategoriesHierarchy } from '../../../utils/api'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -44,6 +45,8 @@ export default function Navigation() {
 
   // console.log('navigation token: ', token)
   // console.log('navigation total amount: ', totalAmount)
+
+  const [categoriesHierarchy, setCategoriesHierarchy] = useState([])
 
   const dispatch = useDispatch()
 
@@ -60,7 +63,7 @@ export default function Navigation() {
     dispatch(logout())
   }
 
-  // TODO: can make the cart icon section (a group of html <div> components) in the <Navigation> component to be a dedicated component 
+  // TODO: can make the cart icon section (a group of html <div> components) in the <Navigation> component to be a dedicated component
   // itself and hence fetch the cart items whenever this component specifically (isnteadof targetting the whole <Navigation> compponent rerendering) rerenders
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -73,8 +76,63 @@ export default function Navigation() {
 
     // console.log('navigaiton useEffect')
   }, [dispatch, token])
-  // - useEffect() function does not necessarily run when the component it 
+  // - useEffect() function does not necessarily run when the component it
   //   is in reredners, but rather when the variables it depends on change
+
+
+  // TODO: there must be a better way to do this by having the catrgories hierarchy directly mapped in the backend to have a perfect flawless performance:
+  // map the categories hierarchy fetched from the backend/database to the navigation data structure:
+  const mapCategoryHierarchyToNavigation = (categoriesHierarchy) => 
+    categoriesHierarchy.map((category) => ({
+      id: category.categoryDTO.path.toLowerCase(),
+      index: navigation.categories.find(
+        (NavigationCategory) =>
+          NavigationCategory.id === category.categoryDTO.path.toLowerCase()
+      ).index, // TODO: make this dynamic as well by fetching it from the backend
+      name: category.categoryDTO.path,
+      featured: navigation.categories.find(
+        (NavigationCategory) =>
+          NavigationCategory.id === category.categoryDTO.path.toLowerCase()
+      ).featured, // TODO: make this dynamic as well by fetching it from the backend
+      sections: category.children.map((child) => ({
+        id: child.categoryDTO.path.toLowerCase(),
+        name: child.categoryDTO.path,
+        items: child.children.map((grandChild) => ({
+          name: grandChild.categoryDTO.path,
+          id: grandChild.categoryDTO.id,
+          href:
+            category.categoryDTO.path.toLowerCase() +
+            '/' +
+            child.categoryDTO.path.toLowerCase() +
+            '/' +
+            grandChild.categoryDTO.path.toLowerCase(),
+        })),
+      })),
+    }))
+
+  useEffect(() => {
+    const fetchCategoriesHierarchy = async () => {
+      // setIsLoading(true)
+      try {
+        const data = await getCategoriesHierarchy()
+        // setCategoriesHierarchy(data)
+        setCategoriesHierarchy(mapCategoryHierarchyToNavigation(data))
+      } catch (error) {
+        // setError(error)
+        console.error(error)
+      } finally {
+        // setIsLoading(false)
+      }
+    }
+
+    fetchCategoriesHierarchy()
+
+    // fetchCategoriesHierarchy().then(() => {
+    //   mapCategoryHierarchyToNavigation(categoriesHierarchy)
+    // })
+  }, [])
+
+  console.log("navigation categories hierarchy: ", categoriesHierarchy)
 
   return (
     <div className="bg-white">
@@ -107,7 +165,8 @@ export default function Navigation() {
             <TabGroup className="mt-2">
               <div className="border-b border-gray-200">
                 <TabList className="-mb-px flex space-x-8 px-4">
-                  {navigation.categories.map((category) => (
+                  {/* {navigation.categories.map((category) => ( */}
+                  {categoriesHierarchy.map((category) => (
                     <Tab
                       key={category.name}
                       className="flex-1 whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-base font-medium text-gray-900 data-[selected]:border-indigo-600 data-[selected]:text-indigo-600"
@@ -118,7 +177,8 @@ export default function Navigation() {
                 </TabList>
               </div>
               <TabPanels as={Fragment}>
-                {navigation.categories.map((category) => (
+                {/* {navigation.categories.map((category) => ( */}
+                {categoriesHierarchy.map((category) => (
                   <TabPanel
                     key={category.name}
                     className="space-y-10 px-4 pb-8 pt-10"
@@ -308,10 +368,13 @@ export default function Navigation() {
               {/* Flyout menus */}
               <PopoverGroup className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
-                  {navigation.categories.map((category) => (
+                  {/* {navigation.categories.map((category) => ( */}
+                  {categoriesHierarchy.map((category) => (
                     <Popover key={category.name} className="flex">
+                    {/* <Popover key={category?.categoryDTO?.path} className="flex"> */}
                       <div className="relative flex">
                         <PopoverButton className="relative z-10 -mb-px flex items-center border-b-2 border-transparent pt-px text-sm font-medium text-gray-700 transition-colors duration-200 ease-out hover:text-gray-800 data-[open]:border-indigo-600 data-[open]:text-indigo-600">
+                          {/* {category?.categoryDTO?.path} */}
                           {category.name}
                         </PopoverButton>
                       </div>
@@ -382,7 +445,7 @@ export default function Navigation() {
                                               className="flex"
                                             >
                                               <NavLink
-                                                to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}`}
+                                                to={`${category.name.toLowerCase()}/${section.name.toLowerCase()}/${item.name.toLowerCase()}?categoryId=${item.id}`}
                                                 // the above will concatenate the above path to the path of the parent route of this component
                                                 className="hover:text-gray-800"
                                                 onClick={close}
